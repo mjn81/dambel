@@ -1,0 +1,59 @@
+#Top-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+
+    >ul {
+        display: flex;
+        font-size: 20px;
+        // border: 1px rgb(179, 255, 0) solid;
+
+        >li {
+            // border: 1px red solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    >#logo {
+        border: 1px red solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        padding: 10px;
+    }
+}
+
+#main {
+    >.row1 {
+        #neveshte {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    >.row2 {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #F2F5F8;
+
+        >figure {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid red;
+            padding: 100px 20px;
+            direction: rtl;
+
+            >h3 {}
+        }
+    }
+}

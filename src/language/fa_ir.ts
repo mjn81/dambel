@@ -54,6 +54,10 @@ export const FA_IR = {
 	Menu: 'منو',
 	Gyms: 'باشگاه ها',
 	Profile: 'پروفایل',
+	Locationary: 'مکان یابی',
+	TraineeObvious: 'نظارت مربی',
+	FinancialManagment:'مدیریت مالی',
+	
 };
 
 export const FA_IR_ERROR = {
