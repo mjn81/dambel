@@ -9,7 +9,20 @@ import "./assets/css/app.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const qc = new QueryClient();
+const qc = new QueryClient(
+	{
+		defaultOptions: {
+			queries: {
+				onError:(error : any) => {
+					if (error.response?.status === 403) {
+						localStorage.removeItem('Dambel-Auth');
+						window.location.href = '/auth/login';
+					}
+				}
+			}
+		}
+	}
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<QueryClientProvider client={qc}>

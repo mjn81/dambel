@@ -94,7 +94,7 @@ function Main() {
 											>
 												{FA_IR.Login}
 											</Button>
-											<Link to="/register">
+											<Link to="/auth/register">
 												<Button
 													type="button"
 													variant="outline-secondary"

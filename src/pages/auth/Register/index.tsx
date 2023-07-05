@@ -86,7 +86,11 @@ function Main() {
 				},
 				phone_number: values.phoneNumber,
 			}
-			registerGymOwner(gymOwner);
+			registerGymOwner(gymOwner, {
+				onSuccess: () => {
+					navigate('/login');
+				},
+			});
 		}
 		else if (role == Role.Trainer) {
 			const trainer = {
@@ -100,7 +104,11 @@ function Main() {
 					number: values.phoneNumber,
 				}
 			};
-			registerTrainer(trainer);
+			registerTrainer(trainer, {
+				onSuccess: () => {
+					navigate('/login');
+				},
+			});
 		}
 		else {
 			toast.error(FA_IR_ERROR.ChooseRole);
@@ -265,7 +273,7 @@ function Main() {
 										</div>
 										<div className="flex gap-1 mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
 											<p>{FA_IR.AlreadyHaveAccount}</p>
-											<Link to="/login">{FA_IR.SignIn}</Link>
+											<Link to="/auth/login">{FA_IR.SignIn}</Link>
 										</div>
 									</Form>
 								</Formik>

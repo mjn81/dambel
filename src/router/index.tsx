@@ -5,16 +5,23 @@ import Page2 from "../pages/Page2";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { ProtectionWrapper } from "../components/Wrappers/ProtectionWrapper";
 
 function Router() {
-  const routes = [
+	const routes = [
 		{
-			path: '/login',
-			element: <Login />,
-		},
-		{
-			path: '/register',
-			element: <Register />,
+			path: '/auth',
+			element: <ProtectionWrapper />,
+			children: [
+				{
+					path: 'login',
+					element: <Login />,
+				},
+				{
+					path: 'register',
+					element: <Register />,
+				},
+			],
 		},
 		{
 			path: '/',
@@ -34,7 +41,7 @@ function Router() {
 		{
 			path: '*',
 			element: <NotFoundPage />,
-		}
+		},
 	];
 
   return useRoutes(routes);
