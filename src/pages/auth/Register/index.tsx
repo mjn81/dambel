@@ -1,14 +1,18 @@
 import DarkModeSwitcher from "../../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../../components/MainColorSwitcher";
-import { FormInput, FormLabel, FormSelect } from "../../../base-components/Form";
+import { FormInput, FormLabel, FormSelect, InputGroup } from "../../../base-components/Form";
 import * as Yup from "yup";
 import Button from "../../../base-components/Button";
 import clsx from "clsx";
-import {Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import { FA_IR, FA_IR_ERROR } from "../../../language";
 import { Logo } from "../../../components/Logo";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { CustomErrorMessage } from "../../../components/Form/Error";
+import { Frame } from "lucide-react";
+import { useGymownerRegister, useTraineeRegister, useTrainerRegister } from "../../../hooks";
 
 const RegisterInitialValues = {
 	firstName: "",
@@ -16,6 +20,12 @@ const RegisterInitialValues = {
 	email: "",
 	password: "",
 	confirmPassword: "",
+	phoneNumber: "",
+}
+
+const TraineeAdditionalFields = {
+	weight: "",
+	height: "",
 }
 
 const RegisterValidationSchema = {
@@ -23,8 +33,16 @@ const RegisterValidationSchema = {
 	lastName: Yup.string().required(FA_IR_ERROR.LastNameRequired),
 	email: Yup.string().email(FA_IR_ERROR.ImproperEmailFormat).required(FA_IR_ERROR.EmailRequired),
 	password: Yup.string().required(FA_IR_ERROR.PasswordRequired),
-	confirmPassword: Yup.string().oneOf([Yup.ref('password')], FA_IR_ERROR.PasswordNotMatch).required(FA_IR_ERROR.PasswordRequired),
-}
+	confirmPassword: Yup.string().oneOf([Yup.ref('password')], FA_IR_ERROR.PasswordNotMatch).required(FA_IR_ERROR.RePassword),
+	phoneNumber: Yup.string().matches(/\+98[0-9]{10}/g, FA_IR_ERROR.NumberNotMatchesFormat).required(FA_IR_ERROR.MobileNumberRequired),
+};
+
+const TraineeAdditionalFieldsValidationSchema = {
+	weight: Yup.number().typeError(FA_IR_ERROR.NotNumber).required(
+		FA_IR_ERROR.WeightRequired
+	),
+	height: Yup.number().typeError(FA_IR_ERROR.NotNumber).required(FA_IR_ERROR.HeightRequired),
+};
 
 enum Role {
 	GymOwner="GymOwner",
@@ -33,22 +51,46 @@ enum Role {
 }
 
 function Main() {
-
-	const [role, setRole] = useState<Role>(Role.Trainee);
+	const {mutate: registerTrainee} = useTraineeRegister();
+	const {mutate: registerTrainer} = useTrainerRegister(); 
+	const {mutate: registerGymOwner } = useGymownerRegister();
+	const [role, setRole] = useState<Role  | null>(null);
 	const handleSubmit = (values: typeof RegisterInitialValues) => {
-		console.log(values);
+		if (role == Role.Trainee) {
+			const trainee = {
+				...values,
+				weight: parseInt((values as any).weight),
+				height: parseInt((values as any).height),
+			};
+
+			registerTrainee(trainee);
+		}
+		else if (role === Role.GymOwner) {
+			registerGymOwner(values);
+		}
+		else if (role == Role.Trainer) {
+			registerTrainer(values);
+		}
+		else {
+			toast.error(FA_IR_ERROR.ChooseRole);
+		}
 	}
   return (
 		<>
 			<div
 				className={clsx([
-					'-m-3 sm:-mx-8 p-3 sm:px-8 relative h-screen lg:overflow-hidden bg-primary xl:flex xl:items-center xl:justify-center xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600',
+					'-m-3 sm:-mx-8 p-3 sm:px-8 relative h-screen lg:overflow-x-hidden bg-primary xl:flex xl:items-center xl:justify-center xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600',
 				])}
 			>
 				<Logo />
 				<DarkModeSwitcher />
 				<MainColorSwitcher />
-				<div className="container relative z-10 sm:px-10">
+				<div
+					className={clsx([
+						'container relative z-10 sm:px-10',
+						role === Role.Trainee ? 'mt-20 mb-16' : '',
+					])}
+				>
 					<div className="block">
 						{/* BEGIN: Login Form */}
 						<div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0 ">
@@ -60,9 +102,20 @@ function Main() {
 									{FA_IR.CreateAccount}
 								</div>
 								<Formik
-									initialValues={RegisterInitialValues}
+									initialValues={
+										role === Role.Trainee
+											? { ...RegisterInitialValues, ...TraineeAdditionalFields }
+											: RegisterInitialValues
+									}
 									onSubmit={handleSubmit}
-									validationSchema={RegisterValidationSchema}
+									validationSchema={
+										role === Role.Trainee
+											? Yup.object({
+													...RegisterValidationSchema,
+													...TraineeAdditionalFieldsValidationSchema,
+											  })
+											: Yup.object(RegisterValidationSchema)
+									}
 									validateOnBlur
 									validateOnChange={false}
 									validateOnMount={false}
@@ -70,12 +123,15 @@ function Main() {
 									<Form>
 										<div className="mt-8 intro-x">
 											<FormSelect
-												onSelect={(e) => {
+												onChange={(e) => {
 													setRole(e.currentTarget.value as Role);
 												}}
+												defaultValue="#"
 												className="block text-slate-400 mt-3 intro-x min-w-full xl:min-w-[350px]"
 											>
-												<option value="#" selected disabled>{FA_IR.ChooseRole}</option>
+												<option value="#" disabled>
+													{FA_IR.ChooseRole}
+												</option>
 												<option value={Role.Trainee}>{FA_IR.Trainee}</option>
 												<option value={Role.Trainer}>{FA_IR.Trainer}</option>
 												<option value={Role.GymOwner}>{FA_IR.GymOwner}</option>
@@ -84,46 +140,94 @@ function Main() {
 												as={FormInput}
 												type="text"
 												name="firstName"
-												className="block px-4 py-3 mt-3 intro-x min-w-full xl:min-w-[350px]"
+												className="block mt-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.FirstName}
 											/>
+											<CustomErrorMessage name="firstName" />
 											<Field
 												as={FormInput}
 												type="text"
 												name="lastName"
-												className="block px-4 py-3 mt-3 intro-x min-w-full xl:min-w-[350px]"
+												className="block mt-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.LastName}
 											/>
-
+											<CustomErrorMessage name="lastName" />
+											{role === Role.Trainee && (
+												<>
+													<InputGroup className="mt-3 ltr min-w-full xl:min-w-[350px]">
+														<Field
+															inputMode="numeric"
+															pattern="[0-9]*"
+															as={FormInput}
+															aria-describedby="input-group-weight"
+															type="text"
+															name="weight"
+															className="block ltr"
+															placeholder={FA_IR.Weight}
+														/>
+														<InputGroup.Text id="input-group-weight">
+															Kg
+														</InputGroup.Text>
+													</InputGroup>
+													<CustomErrorMessage name="weight" />
+													<InputGroup className="mt-3 ltr min-w-full xl:min-w-[350px]">
+														<Field
+															inputMode="numeric"
+															pattern="[0-9]*"
+															as={FormInput}
+															type="text"
+															aria-describedby="input-group-height"
+															name="height"
+															className="block"
+															placeholder={FA_IR.Height}
+														/>
+														<InputGroup.Text id="input-group-height">
+															Cm
+														</InputGroup.Text>
+													</InputGroup>
+													<CustomErrorMessage name="height" />
+												</>
+											)}
 											<Field
 												as={FormInput}
 												type="text"
 												name="email"
-												className="block px-4 py-3 mt-3 intro-x min-w-full xl:min-w-[350px]"
+												className="block mt-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.email}
 											/>
+											<CustomErrorMessage name="email" />
+											<Field
+												as={FormInput}
+												type="text"
+												name="phoneNumber"
+												className="ltr block mt-3 intro-x min-w-full xl:min-w-[350px]"
+												placeholder={FA_IR.PhoneNumber}
+											/>
+											<CustomErrorMessage name="phoneNumber" />
 											<Field
 												as={FormInput}
 												name="password"
 												type="password"
-												className="block px-4 py-3 mt-3 intro-x min-w-full xl:min-w-[350px]"
+												className="block mt-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.password}
 											/>
+											<CustomErrorMessage name="password" />
 											<Field
 												as={FormInput}
 												name="confirmPassword"
 												type="password"
-												className="block px-4 py-3 mt-3 intro-x min-w-full xl:min-w-[350px]"
+												className="block mt-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.rePassword}
 											/>
+											<CustomErrorMessage name="confirmPassword" />
 										</div>
-									
+
 										{/* Button group */}
 										<div className="text-center intro-x my-5 xl:text-right">
 											<Button
 												type="submit"
 												variant="primary"
-												className="w-full px-4 py-3 align-top xl:w-32 xl:ml-3"
+												className="w-full align-top xl:w-32 xl:ml-3"
 											>
 												{FA_IR.Register}
 											</Button>

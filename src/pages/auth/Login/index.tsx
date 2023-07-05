@@ -9,16 +9,17 @@ import { Link } from "react-router-dom";
 import { FA_IR, FA_IR_ERROR } from "../../../language";
 import { Logo } from "../../../components/Logo";
 import { useLogin } from "../../../hooks";
+import { CustomErrorMessage } from "../../../components/Form/Error";
 
 const LoginInitialValues = {
 	email: "",
 	password: "",
 };
 
-const LoginValidationSchema = {
+const LoginValidationSchema = Yup.object({
 	email: Yup.string().email(FA_IR_ERROR.ImproperEmailFormat).required(FA_IR_ERROR.EmailRequired),
 	password: Yup.string().required(FA_IR_ERROR.PasswordRequired),
-};
+});
 
 
 function Main() {
@@ -53,7 +54,6 @@ function Main() {
 									initialValues={LoginInitialValues}
 									onSubmit={handleSubmit}
 									validationSchema={LoginValidationSchema}
-									
 									validateOnBlur
 									validateOnChange={false}
 									validateOnMount={false}
@@ -67,6 +67,7 @@ function Main() {
 												className="block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.email}
 											/>
+											<CustomErrorMessage name="email" />
 											<Field
 												as={FormInput}
 												name="password"
@@ -74,6 +75,7 @@ function Main() {
 												className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
 												placeholder={FA_IR.password}
 											/>
+											<CustomErrorMessage name="password" />
 										</div>
 										<div className="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
 											<Link to="/forget-password">{FA_IR.ForgotPassword}</Link>

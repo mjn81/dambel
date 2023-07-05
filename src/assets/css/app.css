@@ -88,7 +88,7 @@ input::placeholder , textarea::placeholder {
    text-align: right;
 }
 
-input[type="email"],input[type="password"], textarea {
+input[type="email"],input[type="password"] textarea {
    direction: ltr;
 }
 

@@ -20,7 +20,7 @@ export const FA_IR = {
 	PutYourInfo: 'لطفا اطلاعات خود را وارد کنید',
 	FirstName: 'نام',
 	LastName: 'نام خانوادگی',
-	MobileNumber: 'تلفن همراه',
+	PhoneNumber: 'شماره تماس (98+)',
 	Role: 'نقش',
 	Trainee: 'ورزشکار',
 	Trainer: 'مربی',
@@ -57,6 +57,10 @@ export const FA_IR = {
 };
 
 export const FA_IR_ERROR = {
+	NotNumber: 'فقط عدد مجاز است',
+	NumberNotMatchesFormat: 'فرمت شماره تلفن صحیح نیست',
+	RePassword: 'تکرار گذرواژه الزامی است',
+	ChooseRole: 'نقش خود را انتخاب کنید',
   ImproperEmailFormat: 'فرمت ایمیل صحیح نیست',
   EmailRequired: 'ایمیل الزامی است',
   PasswordRequired: 'گذرواژه الزامی است',
