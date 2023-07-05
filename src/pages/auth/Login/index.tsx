@@ -1,14 +1,14 @@
-import DarkModeSwitcher from "../../components/DarkModeSwitcher";
-import MainColorSwitcher from "../../components/MainColorSwitcher";
+import DarkModeSwitcher from "../../../components/DarkModeSwitcher";
+import MainColorSwitcher from "../../../components/MainColorSwitcher";
 import {Formik, Form, Field} from "formik";
-import { FormInput } from "../../base-components/Form";
+import { FormInput } from "../../../base-components/Form";
 import * as Yup from "yup";
-import Button from "../../base-components/Button";
+import Button from "../../../base-components/Button";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { FA_IR, FA_IR_ERROR } from "../../language";
-import { Logo } from "../../components/Logo";
-import { useLogin } from "../../hooks";
+import { FA_IR, FA_IR_ERROR } from "../../../language";
+import { Logo } from "../../../components/Logo";
+import { useLogin } from "../../../hooks";
 
 const LoginInitialValues = {
 	email: "",
@@ -65,14 +65,14 @@ function Main() {
 												type="text"
 												name="email"
 												className="block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
-												placeholder="Email"
+												placeholder={FA_IR.email}
 											/>
 											<Field
 												as={FormInput}
 												name="password"
 												type="password"
 												className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
-												placeholder="Password"
+												placeholder={FA_IR.password}
 											/>
 										</div>
 										<div className="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
@@ -85,7 +85,7 @@ function Main() {
 												variant="primary"
 												className="w-full px-4 py-3 align-top xl:w-32 xl:ml-3"
 											>
-												{FA_IR.SignIn}
+												{FA_IR.Login}
 											</Button>
 											<Link to="/register">
 												<Button
