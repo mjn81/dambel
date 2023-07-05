@@ -5,11 +5,12 @@ import { FormInput } from "../../../base-components/Form";
 import * as Yup from "yup";
 import Button from "../../../base-components/Button";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FA_IR, FA_IR_ERROR } from "../../../language";
 import { Logo } from "../../../components/Logo";
 import { useLogin } from "../../../hooks";
 import { CustomErrorMessage } from "../../../components/Form/Error";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 
 const LoginInitialValues = {
 	email: "",
@@ -23,10 +24,14 @@ const LoginValidationSchema = Yup.object({
 
 
 function Main() {
-	const { mutate} = useLogin(); 
-
+	const navigate = useNavigate();
+	const {mutate} = useLogin(); 
 	const handleSubmit = (values : typeof LoginInitialValues) => {
-			mutate(values);	
+		mutate(values, {
+			onSuccess: () => { 
+				navigate("/dashboard");
+			}
+		})	
 	}
   return (
 		<>

@@ -34,7 +34,7 @@ const RegisterValidationSchema = {
 	email: Yup.string().email(FA_IR_ERROR.ImproperEmailFormat).required(FA_IR_ERROR.EmailRequired),
 	password: Yup.string().required(FA_IR_ERROR.PasswordRequired),
 	confirmPassword: Yup.string().oneOf([Yup.ref('password')], FA_IR_ERROR.PasswordNotMatch).required(FA_IR_ERROR.RePassword),
-	phoneNumber: Yup.string().matches(/\+98[0-9]{10}/g, FA_IR_ERROR.NumberNotMatchesFormat).required(FA_IR_ERROR.MobileNumberRequired),
+	phoneNumber: Yup.string().matches(/09[0-9]{9}/g, FA_IR_ERROR.NumberNotMatchesFormat).required(FA_IR_ERROR.MobileNumberRequired),
 };
 
 const TraineeAdditionalFieldsValidationSchema = {
@@ -53,23 +53,54 @@ enum Role {
 function Main() {
 	const {mutate: registerTrainee} = useTraineeRegister();
 	const {mutate: registerTrainer} = useTrainerRegister(); 
-	const {mutate: registerGymOwner } = useGymownerRegister();
+	const { mutate: registerGymOwner } = useGymownerRegister();
+	const navigate = useNavigate();
 	const [role, setRole] = useState<Role  | null>(null);
 	const handleSubmit = (values: typeof RegisterInitialValues) => {
 		if (role == Role.Trainee) {
 			const trainee = {
-				...values,
+				user: {
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password,
+				},
+				phone_number: values.phoneNumber,
 				weight: parseInt((values as any).weight),
 				height: parseInt((values as any).height),
 			};
 
-			registerTrainee(trainee);
+			registerTrainee(trainee, {
+				onSuccess: () => {
+					navigate("/login");
+				}
+			});
 		}
 		else if (role === Role.GymOwner) {
-			registerGymOwner(values);
+			const gymOwner = {
+				user: {
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password,
+				},
+				phone_number: values.phoneNumber,
+			}
+			registerGymOwner(gymOwner);
 		}
 		else if (role == Role.Trainer) {
-			registerTrainer(values);
+			const trainer = {
+				user: {
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password,
+				},
+				phone_number: {
+					number: values.phoneNumber,
+				}
+			};
+			registerTrainer(trainer);
 		}
 		else {
 			toast.error(FA_IR_ERROR.ChooseRole);

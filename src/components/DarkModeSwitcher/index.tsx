@@ -1,6 +1,6 @@
 import { FA_IR } from "../../language";
-import { selectDarkMode, setDarkMode } from "../../stores/darkModeSlice";
-import { useAppSelector, useAppDispatch } from "../../stores/hooks";
+import { selectDarkMode, setDarkMode } from "../../redux/darkModeSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import clsx from "clsx";
 
 function Main() {

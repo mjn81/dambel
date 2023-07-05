@@ -2,23 +2,24 @@ import {
   postAuthLogin,
   postAuthRegisterOwner,
   postAuthRegisterTrainee,
+  postAuthRegisterTrainer,
 } from '../../api';
 import { FA_IR_ERROR } from '../../language';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import {  setAuth } from '../../stores/authSlice';
-import { useAppDispatch } from '../../stores/hooks';
+import {  setAuth } from '../../redux/authSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 export const useLogin = () => {
   const dispatch = useAppDispatch();
   return useMutation(['login'], postAuthLogin, {
     onSuccess: (data) => {
       dispatch(
-				setAuth({
-					access: data.access,
-					refresh: data.refresh,
-					role: data.role,
-				})
+        setAuth({
+          access: data.access,
+          refresh: data.refresh,
+          role: data.role,
+        })
 			);
       toast.success(FA_IR_ERROR.LoginSuccess);
     },
@@ -48,7 +49,7 @@ export const useGymownerRegister = () => {
 export const useTrainerRegister = () => {
   return useMutation(
     ['trainerRegister'],
-    postAuthRegisterOwner,
+    postAuthRegisterTrainer,
     {
       onSuccess: (data) => {
         toast.success(

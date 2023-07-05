@@ -20,7 +20,7 @@ export const FA_IR = {
 	PutYourInfo: 'لطفا اطلاعات خود را وارد کنید',
 	FirstName: 'نام',
 	LastName: 'نام خانوادگی',
-	PhoneNumber: 'شماره تماس (98+)',
+	PhoneNumber: 'شماره تماس (..09)',
 	Role: 'نقش',
 	Trainee: 'ورزشکار',
 	Trainer: 'مربی',

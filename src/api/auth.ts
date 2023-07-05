@@ -1,4 +1,4 @@
-import { IBaseUser, IGymOwner, ITrainee, ITrainer } from 'interfaces';
+// import { IBaseUser, IGymOwner, ITrainee, ITrainer } from '../interfaces';
 import { post } from './methods';
 
 export const postAuthLogin = async (data: {
@@ -9,21 +9,21 @@ export const postAuthLogin = async (data: {
 };
 
 export const postAuthRegisterOwner =
-  async (data: IGymOwner) => {
+  async (data: any) => {
     return await post(
       '/account/signup/gymowner/',
       data,
     );
   };
 export const postAuthRegisterTrainer =
-  async (data: ITrainer) => {
+  async (data: any) => {
     return await post(
       '/account/signup/trainer/',
       data,
     );
   };
 export const postAuthRegisterTrainee =
-  async (data: ITrainee) => {
+  async (data: any) => {
     return await post(
       '/account/signup/trainee/',
       data,

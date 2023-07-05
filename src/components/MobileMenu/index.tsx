@@ -8,8 +8,8 @@ import {
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toRaw } from "../../utils/helper";
-import { selectSimpleMenu } from "../../stores/simpleMenuSlice";
-import { useAppSelector } from "../../stores/hooks";
+import { selectSimpleMenu } from "../../redux/simpleMenuSlice";
+import { useAppSelector } from "../../redux/hooks";
 import { FormattedMenu, nestedMenu } from "../../layouts/SideMenu/side-menu";
 import { linkTo, enter, leave } from "./mobile-menu";
 import Lucide from "../../base-components/Lucide";

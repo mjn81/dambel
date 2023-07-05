@@ -3,9 +3,9 @@ import {
   selectColorScheme,
   setColorScheme,
   ColorSchemes,
-} from "../../stores/colorSchemeSlice";
-import { selectDarkMode } from "../../stores/darkModeSlice";
-import { useAppSelector, useAppDispatch } from "../../stores/hooks";
+} from "../../redux/colorSchemeSlice";
+import { selectDarkMode } from "../../redux/darkModeSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import clsx from "clsx";
 
 function Main() {
