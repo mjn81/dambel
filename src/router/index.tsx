@@ -24,11 +24,11 @@ function Router() {
 			],
 		},
 		{
-			path: '/',
+			path: '/dashboard',
 			element: <SimpleMenu />,
 			children: [
 				{
-					path: '/',
+					path: '',
 					element: <Page1 />,
 				},
 				{
@@ -44,7 +44,7 @@ function Router() {
 		},
 	];
 
-  return useRoutes(routes);
+	return useRoutes(routes);
 }
 
 export default Router;
