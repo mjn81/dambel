@@ -83,7 +83,20 @@
       -ms-flex-direction: column;
           flex-direction: column;
   border: 1px solid red;
-  padding: 100px 20px;
+  padding: 80px 20px;
   direction: rtl;
+  color: #001D6E;
+  min-height: 70vh;
+}
+
+#main > .row2 > figure > h3 {
+  font-size: 30px;
+  padding: 40px 0;
+}
+
+#main > .row2 > figure p {
+  border: 1px solid red;
+  font-size: 18px;
+  line-height: 40px;
 }
 /*# sourceMappingURL=Style.css.map */
