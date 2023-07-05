@@ -5,12 +5,17 @@ import { Provider } from "react-redux";
 import { store } from "./stores/store";
 import Router from "./router";
 import "./assets/css/app.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <Router />
-    </Provider>
-    <ScrollToTop />
-  </BrowserRouter>
+const qc = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<QueryClientProvider client={qc}>
+		<BrowserRouter>
+			<Provider store={store}>
+				<Router />
+			</Provider>
+			<ScrollToTop />
+		</BrowserRouter>
+	</QueryClientProvider>
 );

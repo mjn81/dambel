@@ -84,7 +84,7 @@ body {
    font-family: "Vazir";
 }
 
-input, textarea, select, form {
+input, textarea, select {
    direction: ltr;
 }
 

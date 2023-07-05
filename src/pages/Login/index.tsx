@@ -1,13 +1,32 @@
 import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
-import { FormInput, FormCheck } from "../../base-components/Form";
+import {Formik, Form, Field} from "formik";
+import { FormInput } from "../../base-components/Form";
+import * as Yup from "yup";
 import Button from "../../base-components/Button";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { FA_IR } from "../../language";
+import { FA_IR, FA_IR_ERROR } from "../../language";
 import { Logo } from "../../components/Logo";
+import { useLogin } from "../../hooks";
+
+const LoginInitialValues = {
+	email: "",
+	password: "",
+};
+
+const LoginValidationSchema = {
+	email: Yup.string().email(FA_IR_ERROR.ImproperEmailFormat).required(FA_IR_ERROR.EmailRequired),
+	password: Yup.string().required(FA_IR_ERROR.PasswordRequired),
+};
+
 
 function Main() {
+	const { mutate} = useLogin(); 
+
+	const handleSubmit = (values : typeof LoginInitialValues) => {
+			mutate(values);	
+	}
   return (
 		<>
 			<div
@@ -30,42 +49,56 @@ function Main() {
 									{FA_IR.WelcomeToDambel}
 								</div>
 								{/* Form Group */}
-								<div className="mt-8 intro-x">
-									<FormInput
-										type="text"
-										className="block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
-										placeholder="Email"
-									/>
-									<FormInput
-										type="password"
-										className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
-										placeholder="Password"
-									/>
-								</div>
-								<div className="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
-									<Link to="/forget-password">{
-										FA_IR.ForgotPassword
-									}</Link>
-								</div>
-
-								{/* Button group */}
-								<div className="mt-5 text-center intro-x xl:mt-8 xl:text-right">
-									<Button
-										variant="primary"
-										className="w-full px-4 py-3 align-top xl:w-32 xl:ml-3"
-									>
-										{FA_IR.SignIn}
-									</Button>
-									<Link to="/register">
-										<Button
-											variant="outline-secondary"
-											className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0"
-										>
-											{FA_IR.Register}
-										</Button>
-									</Link>
-								</div>
-							
+								<Formik
+									initialValues={LoginInitialValues}
+									onSubmit={handleSubmit}
+									validationSchema={LoginValidationSchema}
+									
+									validateOnBlur
+									validateOnChange={false}
+									validateOnMount={false}
+								>
+									<Form>
+										<div className="mt-8 intro-x">
+											<Field
+												as={FormInput}
+												type="text"
+												name="email"
+												className="block px-4 py-3 intro-x min-w-full xl:min-w-[350px]"
+												placeholder="Email"
+											/>
+											<Field
+												as={FormInput}
+												name="password"
+												type="password"
+												className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
+												placeholder="Password"
+											/>
+										</div>
+										<div className="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
+											<Link to="/forget-password">{FA_IR.ForgotPassword}</Link>
+										</div>
+										{/* Button group */}
+										<div className="mt-5 text-center intro-x xl:mt-8 xl:text-right">
+											<Button
+												type="submit"
+												variant="primary"
+												className="w-full px-4 py-3 align-top xl:w-32 xl:ml-3"
+											>
+												{FA_IR.SignIn}
+											</Button>
+											<Link to="/register">
+												<Button
+													type="button"
+													variant="outline-secondary"
+													className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0"
+												>
+													{FA_IR.Register}
+												</Button>
+											</Link>
+										</div>
+									</Form>
+								</Formik>
 							</div>
 						</div>
 						{/* END: Login Form */}
@@ -77,13 +110,3 @@ function Main() {
 }
 
 export default Main;
-
-
-// <a href="" className="flex items-center pt-5 -intro-x">
-							// 	<img
-							// 		alt="Dambel gym finding platgorm"
-							// 		className="w-6"
-							// 		src={logoUrl}
-							// 	/>
-							// 	<span className="ml-3 text-lg text-white"> Dambel </span>
-							// </a>
