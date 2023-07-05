@@ -1,12 +1,11 @@
 import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
-import logoUrl from "../../assets/images/logo.svg";
-import illustrationUrl from "../../assets/images/illustration.svg";
 import { FormInput, FormCheck } from "../../base-components/Form";
 import Button from "../../base-components/Button";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FA_IR } from "../../language";
+import { Logo } from "../../components/Logo";
 
 function Main() {
   return (
@@ -16,17 +15,15 @@ function Main() {
 					'-m-3 sm:-mx-8 p-3 sm:px-8 relative h-screen lg:overflow-hidden bg-primary xl:flex xl:items-center xl:justify-center xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600',
 				])}
 			>
+				<Logo />
 				<DarkModeSwitcher />
 				<MainColorSwitcher />
 				<div className="container relative z-10 sm:px-10">
 					<div className="block">
-				
-					
-						{/* END: Login Info */}
 						{/* BEGIN: Login Form */}
 						<div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0 ">
 							<div className="w-full px-5 py-8 mx-auto my-auto bg-white rounded-md shadow-md  dark:bg-darkmode-600 xl:bg-transparent sm:px-8 xl:p-0 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto">
-								<h2 className="text-xl font-bold text-center intro-x xl:text-3xl xl:text-right">
+								<h2 className="text-xl  text-center intro-x xl:text-3xl xl:text-right">
 									{FA_IR.SignIn}
 								</h2>
 								<div className="mt-2 text-center intro-x text-slate-400 xl:hidden">

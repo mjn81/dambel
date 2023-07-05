@@ -17,8 +17,8 @@ html {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     padding: theme("spacing.3");
-    font-family: theme("fontFamily.roboto");
     font-size: theme("fontSize.sm");
+    font-family: theme('fontFamily.vazir');
     line-height: theme("lineHeight.5");
     color: theme("colors.slate.800");
     @media screen(sm) {

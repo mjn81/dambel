@@ -25,7 +25,7 @@
    |
    */
 @import "./_roboto.css";
-
+@import "./_vazir.css";
 /*
    |--------------------------------------------------------------------------
    | 3rd Party Libraries
@@ -77,8 +77,11 @@
 
 /* rtl direction blocks | only texts */
 
+
+
 body {
    direction: rtl;
+   font-family: "Vazir";
 }
 
 input, textarea, select, form {

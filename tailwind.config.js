@@ -42,7 +42,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        roboto: ["Vazir", "Roboto","sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        vazir: ["Vazir", "sans-serif"],
       },
       container: {
         center: true,
