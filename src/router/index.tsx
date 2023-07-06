@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import SimpleMenu from "../layouts/SimpleMenu";
 import Page1 from "../pages/Page1";
 import Page2 from "../pages/Page2";
+import LandingPage from "../pages/landing";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -9,6 +10,10 @@ import { ProtectionWrapper } from "../components/Wrappers/ProtectionWrapper";
 
 function Router() {
 	const routes = [
+		{
+			path: '/',
+			element: <LandingPage />,
+		},
 		{
 			path: '/auth',
 			element: <ProtectionWrapper />,

@@ -11,6 +11,7 @@ import { Logo } from "../../../components/Logo";
 import { useLogin } from "../../../hooks";
 import { CustomErrorMessage } from "../../../components/Form/Error";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { LoadingPage } from "../../LoadingPage";
 
 const LoginInitialValues = {
 	email: "",
@@ -25,7 +26,7 @@ const LoginValidationSchema = Yup.object({
 
 function Main() {
 	const navigate = useNavigate();
-	const {mutate} = useLogin(); 
+	const {mutate, isLoading} = useLogin(); 
 	const handleSubmit = (values : typeof LoginInitialValues) => {
 		mutate(values, {
 			onSuccess: () => { 
@@ -33,6 +34,11 @@ function Main() {
 			}
 		})	
 	}
+
+	if (isLoading) {
+		return <LoadingPage />;
+	}
+
   return (
 		<>
 			<div

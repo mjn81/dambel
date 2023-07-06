@@ -18,12 +18,12 @@ const initialState: SimpleMenuState = {
   menu: [
     {
       icon: "Activity",
-      pathname: "/",
+      pathname: "/dashboard",
       title: "Page 1",
     },
     {
       icon: "Activity",
-      pathname: "/page-2",
+      pathname: "/dashboard/page-2",
       title: "Page 2",
     },
   ],

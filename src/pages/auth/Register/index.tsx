@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { CustomErrorMessage } from "../../../components/Form/Error";
 import { Frame } from "lucide-react";
 import { useGymownerRegister, useTraineeRegister, useTrainerRegister } from "../../../hooks";
+import { LoadingPage } from "../../LoadingPage";
 
 const RegisterInitialValues = {
 	firstName: "",
@@ -51,9 +52,11 @@ enum Role {
 }
 
 function Main() {
-	const {mutate: registerTrainee} = useTraineeRegister();
-	const {mutate: registerTrainer} = useTrainerRegister(); 
-	const { mutate: registerGymOwner } = useGymownerRegister();
+	const {mutate: registerTrainee, isLoading: isTraineeLoading} = useTraineeRegister();
+	const { mutate: registerTrainer, isLoading: isTrainerLoading } =
+		useTrainerRegister(); 
+	const { mutate: registerGymOwner, isLoading: isGymOwnerLoading } =
+		useGymownerRegister();
 	const navigate = useNavigate();
 	const [role, setRole] = useState<Role  | null>(null);
 	const handleSubmit = (values: typeof RegisterInitialValues) => {
@@ -114,6 +117,12 @@ function Main() {
 			toast.error(FA_IR_ERROR.ChooseRole);
 		}
 	}
+
+	if (isTraineeLoading || isTrainerLoading || isGymOwnerLoading) {
+		return <LoadingPage />;
+	}
+
+
   return (
 		<>
 			<div

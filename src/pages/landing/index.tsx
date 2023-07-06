@@ -14,11 +14,9 @@ const Main = () => {
     return (
         <>
             <div className='bg-white w-screen absolute top-0 left-0 h-screen'>
-
                 <div id='Top-menu' className='border border-red-600 ltr ' >
-
                     <div className='border border-red-600 '>
-                        <Link to="/Login">
+                        <Link to="/auth/login">
                             <Button
                                 type="button"
                                 variant="outline-secondary"
