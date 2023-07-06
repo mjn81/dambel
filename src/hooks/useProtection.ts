@@ -13,7 +13,7 @@ export const useProtection = () => {
 				dispatch(clearAuth());
 				navigate('/auth/login');
 			} else {
-				navigate('/dashboard');
+				navigate('/dashboard', { replace: true });
 			}
   }, [])
 };
