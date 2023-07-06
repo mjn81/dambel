@@ -5,6 +5,7 @@
 
     >ul {
         display: flex;
+        justify-content: space-around;
         font-size: 20px;
         // border: 1px rgb(179, 255, 0) solid;
 
@@ -13,9 +14,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            // border: 1px solid red;
             font-size: 20px;
-            font-weight: bold;
+     
         }
     }
 
@@ -64,6 +65,33 @@
                 border: 1px solid red;
                 font-size: 18px;
                 line-height: 40px;
+            }
+        }
+    }
+
+    .row3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        >div {
+            background-color: #FB923C;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            color: #FFFF;
+            >h2{
+                font-size: 40px;
+             
+            }
+            >div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 25px;
+             
             }
         }
     }

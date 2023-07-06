@@ -13,7 +13,7 @@ import LandingImage5 from "../../assets/images/landing/Group.svg";
 const Main = () => {
     return (
         <>
-            <div className='bg-white w-screen absolute top-0 left-0 h-screen'>
+            <div className='bg-white w-screen absolute top-0 left-0 min-h-max ltr'>
 
                 <div id='Top-menu' className='border border-red-600 ltr ' >
 
@@ -29,7 +29,7 @@ const Main = () => {
                         </Link>
                     </div>
 
-                    <ul className=''>
+                    <ul className='w-5/12'>
                         <li>مربیان</li>
                         <li>باشگاه ها</li>
                         <li>تماس  با ما </li>
@@ -73,7 +73,24 @@ const Main = () => {
                         </figure>
                     </div>
                     <div className="row3">
-                        
+                        <div className='border border-red-600 w-3/4 rounded-lg'>
+                            <h2 className='w-full text-center p-10'>دمبل در کنار شماست تا به سلامت جسم شما کمک کند</h2>
+                            <div className='w-1/3 p-10'>
+                                نفر
+                                1000
+                                مربی<i className="fa-duotone fa-chalkboard-user"></i>
+                            </div>
+                            <div className='w-1/3 p-10'>
+                                عدد
+                                1000
+                                باشگاه <i className="fa-solid fa-dumbbell"></i>
+                            </div>
+                            <div className='w-1/3 p-10'>
+                                نفر
+                                1000
+                                ورزشکار   <i className="fa-solid fa-person-walking"></i>
+                            </div>
+                        </div>
                     </div>
                 </main>
 
