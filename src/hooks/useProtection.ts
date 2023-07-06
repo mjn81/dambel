@@ -13,11 +13,7 @@ export const useProtection = () => {
 				dispatch(clearAuth());
 				navigate('/auth/login');
 			} else {
-				console.log('location', location.key);
-				if (location.key === 'default') {
-					console.log('default');
-					navigate('/dashboard');
-				}
+				navigate('/dashboard');
 			}
   }, [])
 };
