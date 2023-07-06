@@ -30,7 +30,7 @@ function Main() {
       <DarkModeSwitcher />
       <MainColorSwitcher />
       <MobileMenu />
-      <div className="flex mt-[4.7rem] md:mt-0">
+      <div className="flex ltr mt-[4.7rem] md:mt-0">
         {/* BEGIN: Simple Menu */}
         <nav className="pr-5 pb-16 overflow-x-hidden hidden md:block w-[85px]">
           <Link
