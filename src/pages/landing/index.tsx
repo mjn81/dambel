@@ -15,9 +15,9 @@ const Main = () => {
         <>
             <div className='bg-white w-screen absolute top-0 left-0 min-h-max ltr'>
 
-                <div id='Top-menu' className='border border-red-600 ltr ' >
+                <div id='Top-menu' className='p-7 ltr' >
 
-                    <div className='border border-red-600 '>
+                    <div className=' '>
                         <Link to="/Login">
                             <Button
                                 type="button"
@@ -29,7 +29,7 @@ const Main = () => {
                         </Link>
                     </div>
 
-                    <ul className='w-5/12'>
+                    <ul className='w-5/12 menu'>
                         <li>مربیان</li>
                         <li>باشگاه ها</li>
                         <li>تماس  با ما </li>
@@ -73,7 +73,7 @@ const Main = () => {
                         </figure>
                     </div>
                     <div className="row3">
-                        <div className='border border-red-600 w-3/4 rounded-lg'>
+                        <div className='w-3/4 rounded-lg'>
                             <h2 className='w-full text-center p-10'>دمبل در کنار شماست تا به سلامت جسم شما کمک کند</h2>
                             <div className='w-1/3 p-10'>
                                 نفر
@@ -95,7 +95,17 @@ const Main = () => {
                 </main>
 
                 <footer>
-
+                    <ul className='w-5/12  text-lg'>
+                        <li>مربیان</li>
+                        <li>باشگاه ها</li>
+                        <li>تماس  با ما </li>
+                        <li>درباره ما</li>
+                    </ul>
+                 
+                    <div className='w-full text-center p-5'>
+                        <i className="fa-brands fa-telegram p-3 text-4xl"></i>
+                        <i className="fa-brands fa-instagram p-3 text-4xl"></i>
+                    </div>
                 </footer>
             </div>
         </>

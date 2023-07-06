@@ -4,10 +4,9 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  padding: 0 10px;
 }
 
-#Top-menu > ul {
+#Top-menu .menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,7 +15,7 @@
   font-size: 20px;
 }
 
-#Top-menu > ul > li {
+#Top-menu .menu > li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -30,7 +29,6 @@
 }
 
 #Top-menu > #logo {
-  border: 1px red solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -82,7 +80,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border: 1px solid red;
   padding: 80px 20px;
   direction: rtl;
   color: #001D6E;
@@ -95,7 +92,6 @@
 }
 
 #main > .row2 > figure p {
-  border: 1px solid red;
   font-size: 18px;
   line-height: 40px;
 }
@@ -144,5 +140,30 @@
       -ms-flex-align: center;
           align-items: center;
   font-size: 25px;
+}
+
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #F2F5F8;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+footer > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 20px;
+  padding: 20px;
 }
 /*# sourceMappingURL=Style.css.map */

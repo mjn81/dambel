@@ -1,9 +1,9 @@
 #Top-menu {
     display: flex;
     justify-content: space-around;
-    padding: 0 10px;
 
-    >ul {
+
+    .menu {
         display: flex;
         justify-content: space-around;
         font-size: 20px;
@@ -16,12 +16,12 @@
             align-items: center;
             // border: 1px solid red;
             font-size: 20px;
-     
+
         }
     }
 
     >#logo {
-        border: 1px red solid;
+        // border: 1px red solid;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,6 +29,8 @@
         padding: 10px;
     }
 }
+
+
 
 #main {
     >.row1 {
@@ -50,7 +52,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            border: 1px solid red;
+            // border: 1px solid red;
             padding: 80px 20px;
             direction: rtl;
             color: #001D6E;
@@ -62,7 +64,6 @@
             }
 
             p {
-                border: 1px solid red;
                 font-size: 18px;
                 line-height: 40px;
             }
@@ -82,17 +83,34 @@
             align-items: center;
             flex-wrap: wrap;
             color: #FFFF;
-            >h2{
+
+            >h2 {
                 font-size: 40px;
-             
+
             }
-            >div{
+
+            >div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 25px;
-             
+
             }
         }
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F5F8;
+    flex-wrap: wrap;
+
+    >ul {
+        display: flex;
+    justify-content: space-around;
+        font-size: 20px;
+        padding: 20px;
     }
 }
