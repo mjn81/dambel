@@ -7,7 +7,7 @@ import Button from "../../../base-components/Button";
 import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 import { FA_IR, FA_IR_ERROR } from "../../../language";
-import { Logo } from "../../../components/Logo";
+import { LogoFixed } from "../../../components/Logo";
 import { useLogin } from "../../../hooks";
 import { CustomErrorMessage } from "../../../components/Form/Error";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -46,7 +46,7 @@ function Main() {
 					'-m-3 sm:-mx-8 p-3 sm:px-8 relative h-screen lg:overflow-hidden bg-primary xl:flex xl:items-center xl:justify-center xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600',
 				])}
 			>
-				<Logo />
+				<LogoFixed />
 				<DarkModeSwitcher />
 				<MainColorSwitcher />
 				<div className="container relative z-10 sm:px-10">

@@ -8,17 +8,18 @@ import LandingImage2 from "../../assets/images/landing/Group 2.png";
 import LandingImage3 from "../../assets/images/landing/maplanding.svg";
 import LandingImage4 from "../../assets/images/landing/Personal trainer 1.svg";
 import LandingImage5 from "../../assets/images/landing/Group.svg";
+import { Logo } from '../../components/Logo';
 
 const Main = () => {
     return (
 			<div className="bg-white w-screen absolute top-0 left-0 min-h-max ltr">
 				<div id="Top-menu" className="p-7 ltr">
-					<div className=" ">
+					<div>
 						<Link to="/auth/login">
 							<Button
 								type="button"
-								variant="outline-secondary"
-								className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-orange-600 text-white"
+								variant="primary"
+								className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 text-white"
 							>
 								{FA_IR.Login} / {FA_IR.Register}
 							</Button>
@@ -33,23 +34,23 @@ const Main = () => {
 					</ul>
 
 					<div id="logo">
-						<p>دمبل</p>
+						<Logo />
 					</div>
 				</div>
 
-				<main id="main" className="ltr ">
+				<main id="main" className="ltr">
 					<div className="row1">
 						<div className="flex">
 							<figure className="w-1/2 flex justify-center p-5">
 								<img src={LandingImage} alt="landing" />
 							</figure>
 
-							<figure id="neveshte" className="bg-orange-600 w-1/2">
+							<figure id="neveshte" className="bg-primary w-1/2">
 								<img src={LandingImage2} alt="" />
 							</figure>
 						</div>
 					</div>
-					<div className="row2  py-10">
+					<div className="row2 py-10">
 						<figure className="rounded-lg w-1/4">
 							<img src={LandingImage3} alt="imglanding" />
 							<h3>{FA_IR.Locationary}</h3>
@@ -76,7 +77,7 @@ const Main = () => {
 						</figure>
 					</div>
 					<div className="row3">
-						<div className="w-3/4 rounded-lg">
+						<div className="w-3/4 bg-primary rounded-lg">
 							<h2 className="w-full text-center p-10">
 								دمبل در کنار شماست تا به سلامت جسم شما کمک کند
 							</h2>
@@ -94,7 +95,7 @@ const Main = () => {
 				</main>
 
 				<footer>
-					<ul className="w-5/12  text-lg">
+					<ul className="w-5/12 text-lg">
 						<li>مربیان</li>
 						<li>باشگاه ها</li>
 						<li>تماس با ما </li>

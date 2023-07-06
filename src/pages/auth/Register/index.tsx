@@ -6,7 +6,7 @@ import Button from "../../../base-components/Button";
 import clsx from "clsx";
 import {Link, useNavigate } from "react-router-dom";
 import { FA_IR, FA_IR_ERROR } from "../../../language";
-import { Logo } from "../../../components/Logo";
+import { LogoFixed } from "../../../components/Logo";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -130,7 +130,7 @@ function Main() {
 					'-m-3 sm:-mx-8 p-3 sm:px-8 relative h-screen lg:overflow-x-hidden bg-primary xl:flex xl:items-center xl:justify-center xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600',
 				])}
 			>
-				<Logo />
+				<LogoFixed />
 				<DarkModeSwitcher />
 				<MainColorSwitcher />
 				<div
