@@ -1,7 +1,8 @@
 import { useRoutes } from "react-router-dom";
-import SimpleMenu from "../layouts/SimpleMenu";
-import Page1 from "../pages/Page1";
+// import SimpleMenu from "../layouts/SimpleMenu";
+import SideMenu from '../layouts/SideMenu';
 import Page2 from "../pages/Page2";
+import FindGymPage from "../pages/findGym";
 import LandingPage from "../pages/landing";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
@@ -30,11 +31,11 @@ function Router() {
 		},
 		{
 			path: '/dashboard',
-			element: <SimpleMenu />,
+			element: <SideMenu />,
 			children: [
 				{
 					path: '',
-					element: <Page1 />,
+					element: <FindGymPage />,
 				},
 				{
 					path: 'page-2',

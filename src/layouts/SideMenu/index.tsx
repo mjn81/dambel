@@ -1,7 +1,7 @@
 import { Transition } from "react-transition-group";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { selectSideMenu } from "../../redux/sideMenuSlice";
+import { selectSimpleMenu } from '../../redux/simpleMenuSlice';
 import { useAppSelector } from "../../redux/hooks";
 import { FormattedMenu, linkTo, nestedMenu, enter, leave } from "./side-menu";
 import Lucide from "../../base-components/Lucide";
@@ -12,13 +12,14 @@ import MobileMenu from "../../components/MobileMenu";
 import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
 import SideMenuTooltip from "../../components/SideMenuTooltip";
+import { FA_IR } from "../../language";
 
 function Main() {
   const location = useLocation();
   const [formattedMenu, setFormattedMenu] = useState<
     Array<FormattedMenu | "divider">
   >([]);
-  const sideMenuStore = useAppSelector(selectSideMenu);
+  const sideMenuStore = useAppSelector(selectSimpleMenu);
   const sideMenu = () => nestedMenu(sideMenuStore, location);
 
   useEffect(() => {
@@ -30,11 +31,11 @@ function Main() {
       <DarkModeSwitcher />
       <MainColorSwitcher />
       <MobileMenu />
-      <div className="flex mt-[4.7rem] md:mt-0">
+      <div className="flex ltr mt-[4.7rem] md:mt-0">
         {/* BEGIN: Side Menu */}
         <nav className="pr-5 pb-16 overflow-x-hidden hidden md:block w-[85px] xl:w-[230px]">
           <Link
-            to="/side-menu/dashboard-overview-1"
+            to="/dashboard"
             className="flex items-center pt-4 pl-5 intro-x"
           >
             <img
@@ -43,7 +44,7 @@ function Main() {
               src={logoUrl}
             />
             <span className="hidden ml-3 text-lg text-white xl:block">
-              Rubick
+              {FA_IR.Dambel}
             </span>
           </Link>
           <Divider type="div" className="my-6"></Divider>

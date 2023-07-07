@@ -1,4 +1,6 @@
 import React from 'react';
+import DarkModeSwitcher from '../../components/DarkModeSwitcher';
+import MainColorSwitcher from '../../components/MainColorSwitcher';
 import './Style.css';
 import Button from "../../base-components/Button";
 import { Link } from "react-router-dom";
@@ -9,10 +11,14 @@ import LandingImage3 from "../../assets/images/landing/maplanding.svg";
 import LandingImage4 from "../../assets/images/landing/Personal trainer 1.svg";
 import LandingImage5 from "../../assets/images/landing/Group.svg";
 import { Logo } from '../../components/Logo';
+import { useAppSelector } from '../../redux/hooks';
 
 const Main = () => {
+	const auth = useAppSelector(state => state.auth);
     return (
 			<div className="bg-white w-screen absolute top-0 left-0 min-h-max ltr">
+				<DarkModeSwitcher />
+				<MainColorSwitcher />
 				<div id="Top-menu" className="p-7 ltr">
 					<div>
 						<Link to="/auth/login">
@@ -21,7 +27,7 @@ const Main = () => {
 								variant="primary"
 								className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 text-white"
 							>
-								{FA_IR.Login} / {FA_IR.Register}
+								{!!auth.access ? FA_IR.Dashboard : FA_IR.LoginAndRegister }
 							</Button>
 						</Link>
 					</div>

@@ -14,6 +14,7 @@ import { CustomErrorMessage } from "../../../components/Form/Error";
 import { Frame } from "lucide-react";
 import { useGymownerRegister, useTraineeRegister, useTrainerRegister } from "../../../hooks";
 import { LoadingPage } from "../../LoadingPage";
+import { Role } from "../../../constants";
 
 const RegisterInitialValues = {
 	firstName: "",
@@ -45,11 +46,6 @@ const TraineeAdditionalFieldsValidationSchema = {
 	height: Yup.number().typeError(FA_IR_ERROR.NotNumber).required(FA_IR_ERROR.HeightRequired),
 };
 
-enum Role {
-	GymOwner="GymOwner",
-	Trainer = "Trainer",
-	Trainee = "Trainee",
-}
 
 function Main() {
 	const {mutate: registerTrainee, isLoading: isTraineeLoading} = useTraineeRegister();

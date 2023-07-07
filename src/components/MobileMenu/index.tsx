@@ -6,7 +6,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toRaw } from "../../utils/helper";
 import { selectSimpleMenu } from "../../redux/simpleMenuSlice";
 import { useAppSelector } from "../../redux/hooks";
@@ -46,13 +46,13 @@ function Main() {
         ])}
       >
         <div className="h-[70px] px-3 sm:px-8 flex items-center">
-          <a href="" className="flex mr-auto">
+          <Link to="/dashboard" className="flex mr-auto">
             <img
               alt="Midone Tailwind HTML Admin Template"
               className="w-6"
               src={logoUrl}
             />
-          </a>
+          </Link>
           <a href="#" onClick={(e) => e.preventDefault()}>
             <Lucide
               icon="BarChart2"

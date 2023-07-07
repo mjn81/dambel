@@ -56,7 +56,8 @@
     "tom-select": "^2.2.0",
     "xlsx": "^0.18.5",
     "yup": "^1.2.0",
-    "zoom-vanilla.js": "^2.0.6"
+    "zoom-vanilla.js": "^2.0.6",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
