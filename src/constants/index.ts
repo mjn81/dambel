@@ -9,5 +9,5 @@ export enum Role {
 export const TEHRAN_LOCATION: IMapLocation = {
 	lat: 35.6892,
 	lng: 51.3890,
-	zoom: 1000,
+	zoom: 18,
 };

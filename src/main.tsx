@@ -9,13 +9,15 @@ import "./assets/css/app.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { HeaderApiLoader } from "./components/Wrappers/ProtectionWrapper";
 const qc = new QueryClient(
 	{
 		defaultOptions: {
 			queries: {
-				onError:(error : any) => {
-					if (error.response?.status === 403) {
-						localStorage.removeItem('Dambel-Auth');
+				onError: (error: any) => {
+					console.log(error);
+					if (error.response?.status === 401) {
+						localStorage.removeItem('persist:Dambel-Auth');
 						window.location.href = '/auth/login';
 					}
 				}
@@ -29,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<BrowserRouter>
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
+					<HeaderApiLoader />
 					<Router />
 				</PersistGate>
 			</Provider>

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-import { FA_IR, FA_IR_ERROR } from "../../language";
-import LeafletMap from "../../components/LeafletMap";
-import Button from "../../base-components/Button";
-import Lucide from "../../base-components/Lucide";
+import { FA_IR, FA_IR_ERROR } from "../../../language";
+import LeafletMap from "../../../components/LeafletMap";
+import Button from "../../../base-components/Button";
+import Lucide from "../../../base-components/Lucide";
 
-import { TEHRAN_LOCATION } from "../../constants";
-import { set } from "lodash";
+import { TEHRAN_LOCATION } from "../../../constants";
+import { useGymLocationList } from "../../../hooks";
+import { GeoLocationStatus } from "../../../hooks/useNavigatableMap";
 
-type GeoLocationStatus = {
-  isAllowed: boolean;
-  error: string | null;
-  isLoading: boolean;
-  isInitialLoading: boolean;
-}
+
 
 function Main() {
   const [currentLocation, setCurrentLocation] = useState(TEHRAN_LOCATION);
@@ -58,8 +54,10 @@ function Main() {
 
   }, []);
 
+	const { data } = useGymLocationList(currentLocation, geolocationStatus);
+	console.log(data)
   const handleSubmit = () => {
-    console.log(currentLocation)
+		console.log(currentLocation)
   }
 
   const handleResetLocation = () => {

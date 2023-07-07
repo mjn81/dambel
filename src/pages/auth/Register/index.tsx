@@ -71,7 +71,7 @@ function Main() {
 
 			registerTrainee(trainee, {
 				onSuccess: () => {
-					navigate("/login");
+					navigate("/auth/login");
 				}
 			});
 		}

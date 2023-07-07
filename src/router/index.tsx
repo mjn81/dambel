@@ -1,8 +1,8 @@
 import { useRoutes } from "react-router-dom";
 // import SimpleMenu from "../layouts/SimpleMenu";
 import SideMenu from '../layouts/SideMenu';
-import Page2 from "../pages/Page2";
-import FindGymPage from "../pages/findGym";
+import AddGymPage from "../pages/gym/addGym";
+import FindGymPage from "../pages/gym/findGym";
 import LandingPage from "../pages/landing";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
@@ -38,8 +38,8 @@ function Router() {
 					element: <FindGymPage />,
 				},
 				{
-					path: 'page-2',
-					element: <Page2 />,
+					path: 'gym/add',
+					element: <AddGymPage />,
 				},
 			],
 		},
