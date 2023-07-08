@@ -1,45 +1,47 @@
-import DarkModeSwitcher from "../../../components/DarkModeSwitcher";
-import MainColorSwitcher from "../../../components/MainColorSwitcher";
-import {Formik, Form, Field} from "formik";
-import { FormInput } from "../../../base-components/Form";
-import * as Yup from "yup";
-import Button from "../../../base-components/Button";
-import clsx from "clsx";
-import { Link, useNavigate } from "react-router-dom";
-import { FA_IR, FA_IR_ERROR } from "../../../language";
-import { LogoFixed } from "../../../components/Logo";
-import { useLogin } from "../../../hooks";
-import { CustomErrorMessage } from "../../../components/Form/Error";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { LoadingPage } from "../../LoadingPage";
+import DarkModeSwitcher from '../../../components/DarkModeSwitcher';
+import MainColorSwitcher from '../../../components/MainColorSwitcher';
+import { Formik, Form, Field } from 'formik';
+import { FormInput } from '../../../base-components/Form';
+import * as Yup from 'yup';
+import Button from '../../../base-components/Button';
+import clsx from 'clsx';
+import { Link, useNavigate } from 'react-router-dom';
+import { FA_IR, FA_IR_ERROR } from '../../../language';
+import { LogoFixed } from '../../../components/Logo';
+import { useLogin, useSendOtp } from '../../../hooks';
+import { CustomErrorMessage } from '../../../components/Form/Error';
+import { LoadingPage } from '../../LoadingPage';
 
-const LoginInitialValues = {
-	email: "",
-	password: "",
+const ForgetPassInitialValues = {
+	email: '',
 };
 
 const LoginValidationSchema = Yup.object({
-	email: Yup.string().email(FA_IR_ERROR.ImproperEmailFormat).required(FA_IR_ERROR.EmailRequired),
-	password: Yup.string().required(FA_IR_ERROR.PasswordRequired),
+	email: Yup.string()
+		.email(FA_IR_ERROR.ImproperEmailFormat)
+		.required(FA_IR_ERROR.EmailRequired),
 });
-
 
 function Main() {
 	const navigate = useNavigate();
-	const {mutate, isLoading} = useLogin(); 
-	const handleSubmit = (values : typeof LoginInitialValues) => {
+	const { mutate, isLoading } = useSendOtp();
+	const handleSubmit = (values: typeof ForgetPassInitialValues) => {
 		mutate(values, {
-			onSuccess: () => { 
-				navigate("/dashboard");
-			}
-		})	
-	}
+			onSuccess: () => {
+        navigate('/auth/forget-pass/otp', {
+					state: {
+						email: values.email,
+					},
+				});
+			},
+		});
+	};
 
 	if (isLoading) {
 		return <LoadingPage />;
 	}
 
-  return (
+	return (
 		<>
 			<div
 				className={clsx([
@@ -55,14 +57,14 @@ function Main() {
 						<div className="flex h-screen py-5 my-10 xl:h-auto xl:py-0 xl:my-0 ">
 							<div className="w-full px-5 py-8 mx-auto my-auto bg-white rounded-md shadow-md  dark:bg-darkmode-600 xl:bg-transparent sm:px-8 xl:p-0 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto">
 								<h2 className="text-xl  text-center intro-x xl:text-3xl xl:text-right">
-									{FA_IR.SignIn}
+									{FA_IR.ForgetPassword}
 								</h2>
 								<div className="mt-2 text-center intro-x text-slate-400 xl:hidden">
-									{FA_IR.WelcomeToDambel}
+									{FA_IR.EnterEmailToReceiveCode}
 								</div>
 								{/* Form Group */}
 								<Formik
-									initialValues={LoginInitialValues}
+									initialValues={ForgetPassInitialValues}
 									onSubmit={handleSubmit}
 									validationSchema={LoginValidationSchema}
 									validateOnBlur
@@ -79,17 +81,6 @@ function Main() {
 												placeholder={FA_IR.email}
 											/>
 											<CustomErrorMessage name="email" />
-											<Field
-												as={FormInput}
-												name="password"
-												type="password"
-												className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
-												placeholder={FA_IR.password}
-											/>
-											<CustomErrorMessage name="password" />
-										</div>
-										<div className="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
-											<Link to="/auth/forget-password">{FA_IR.ForgotPassword}</Link>
 										</div>
 										{/* Button group */}
 										<div className="mt-5 text-center intro-x xl:mt-8 xl:text-right">
@@ -98,17 +89,8 @@ function Main() {
 												variant="primary"
 												className="w-full px-4 py-3 align-top xl:w-32 xl:ml-3"
 											>
-												{FA_IR.Login}
+												{FA_IR.Continue}
 											</Button>
-											<Link to="/auth/register">
-												<Button
-													type="button"
-													variant="outline-secondary"
-													className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0"
-												>
-													{FA_IR.Register}
-												</Button>
-											</Link>
 										</div>
 									</Form>
 								</Formik>

@@ -21,7 +21,7 @@ const Main = () => {
 				<MainColorSwitcher />
 				<div id="Top-menu" className="p-7 ltr">
 					<div>
-						<Link to="/auth/login">
+						<Link to={auth.access ? "/dashboard" : "/auth/login"}>
 							<Button
 								type="button"
 								variant="primary"

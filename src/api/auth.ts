@@ -29,3 +29,12 @@ export const postAuthRegisterTrainee =
       data,
     );
   };
+export const postAuthResetPass = async (data: any) => {
+	return await post('/account/reset/', data);
+};
+export const postAuthCheckOtp = async (data: any) => {
+	return await post('/account/check-code/', data);
+};
+export const postAuthConfirmReset = async (data: any) => {
+	return await post('/account/reset/confirm/', data);
+};

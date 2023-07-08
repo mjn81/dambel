@@ -15,7 +15,6 @@ const qc = new QueryClient(
 		defaultOptions: {
 			queries: {
 				onError: (error: any) => {
-					console.log(error);
 					if (error.response?.status === 401) {
 						localStorage.removeItem('persist:Dambel-Auth');
 						window.location.href = '/auth/login';

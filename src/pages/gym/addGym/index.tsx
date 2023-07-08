@@ -39,19 +39,37 @@ const ValidateSchemaCompleteData = Yup.object({
 
 
 const descEditorConfig = {
-		toolbar: {
-			items: ['bold', 'italic', 'link', 'undo', 'redo', 'blockQuote'],
+	toolbar: {
+		items: [
+			'bold',
+			'italic',
+			'link',
+			'undo',
+			'redo',
+			'blockQuote',
+			'numberedList',
+			'bulletedList',
+		],
 
-			direction: 'rtl',
-		},
-		id: 'gdesc',
-		language: 'fa',
-		placeholder: FA_IR.EnterGymDescription,
+		direction: 'rtl',
+	},
+	id: 'gdesc',
+	language: 'fa',
+	placeholder: FA_IR.EnterGymDescription,
 };
  
 const contactEditorConfig = {
 	toolbar: {
-		items: ['bold', 'italic', 'link', 'undo', 'redo', 'blockQuote'],
+		items: [
+			'bold',
+			'italic',
+			'link',
+			'undo',
+			'redo',
+			'blockQuote',
+			'numberedList',
+			'bulletedList',
+		],
 
 		direction: 'rtl',
 	},
@@ -70,9 +88,10 @@ function Main() {
 	const [contactEditorData, setContactEditorData] = useState<string>('');
 	const [backgroundImage, setBackgroundImage] = useState<any>(null);
 	const [logo, setLogo] = useState<any>(null);
+	const [license, setLicense] = useState<any>(null);
 	const backgroundImageRef = useRef<DropzoneElement>();
 	const logoRef = useRef<DropzoneElement>();
-	console.log(backgroundImage, logo)
+	const licenseRef = useRef<DropzoneElement>();
 	useEffect(() => {
 		 const backImgEl = backgroundImageRef.current;
 		 const logoEl = logoRef.current;
@@ -182,7 +201,7 @@ function Main() {
 								config={contactEditorConfig}
 							/>
 						</div>
-						<section className="mt-3 gap-3 grid grid-cols-2">
+						<section className="mt-4 gap-3 grid grid-cols-2">
 							<div className="col-span-1 intro-x">
 								<FormLabel htmlFor="province">{FA_IR.UploadGymImage}</FormLabel>
 								<Dropzone
@@ -224,7 +243,26 @@ function Main() {
 								</Dropzone>
 							</div>
 						</section>
-
+						<div className="intro-x mt-3">
+							<FormLabel htmlFor="province">{FA_IR.UploadLicenseImage}</FormLabel>
+							<Dropzone
+								getRef={(el) => {
+									licenseRef.current = el;
+								}}
+								options={{
+									url: 'https://httpbin.org/post',
+									thumbnailWidth: 150,
+									maxFilesize: 0.5,
+									maxFiles: 1,
+									headers: { 'My-Awesome-Header': 'header value' },
+								}}
+								className="dropzone"
+							>
+								<div className="text-lg font-medium text-opacity-30">
+									{FA_IR.DragImageHereOrClickToUpload}
+								</div>
+							</Dropzone>
+						</div>
 						<div className="mt-3 intro-x">
 							<FormLabel htmlFor="province">{FA_IR.Province}</FormLabel>
 							<TomSelect

@@ -1,8 +1,11 @@
 import {
+  postAuthCheckOtp,
+  postAuthConfirmReset,
   postAuthLogin,
   postAuthRegisterOwner,
   postAuthRegisterTrainee,
   postAuthRegisterTrainer,
+  postAuthResetPass,
 } from '../../api';
 import { FA_IR_ERROR } from '../../language';
 import { useMutation } from 'react-query';
@@ -28,6 +31,37 @@ export const useLogin = () => {
     },
   });
 };
+
+export const useSendOtp = () => {
+  return useMutation(['otp'], postAuthResetPass, {
+    onSuccess: (data) => {
+      toast.success(FA_IR_ERROR.OtpSuccess);
+    },
+    onError: (error) => {
+      toast.error(FA_IR_ERROR.OtpFailed);
+    },
+  });
+}
+export const useCheckOtp = () => {
+  return useMutation(['otp'], postAuthCheckOtp, {
+		onError: (error) => {
+			toast.error(FA_IR_ERROR.WrongOtp);
+		},
+	});
+}
+
+export const useConfirmReset = () => {
+  return useMutation(['otp'], postAuthConfirmReset, {
+		onSuccess: (data) => {
+			toast.success(FA_IR_ERROR.ResetSuccess);
+		},
+		onError: (error) => {
+			toast.error(FA_IR_ERROR.ResetFailed);
+		},
+	});
+}
+
+
 
 export const useGymownerRegister = () => {
   return useMutation(
