@@ -13,6 +13,7 @@ import { GeoLocationStatus } from "../../../hooks/useNavigatableMap";
 
 
 function Main() {
+	
   const [currentLocation, setCurrentLocation] = useState(TEHRAN_LOCATION);
   const [geolocationStatus, setGeolocationStatus] = useState<GeoLocationStatus>({
     isAllowed: false,

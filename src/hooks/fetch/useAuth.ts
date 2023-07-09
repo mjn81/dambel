@@ -1,4 +1,5 @@
 import {
+  getCheckVerifyAccount,
   postAuthCheckOtp,
   postAuthConfirmReset,
   postAuthLogin,
@@ -8,7 +9,7 @@ import {
   postAuthResetPass,
 } from '../../api';
 import { FA_IR_ERROR } from '../../language';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import {  setAuth } from '../../redux/authSlice';
 import { useAppDispatch } from '../../redux/hooks';
@@ -61,8 +62,6 @@ export const useConfirmReset = () => {
 	});
 }
 
-
-
 export const useGymownerRegister = () => {
   return useMutation(
     ['gymownerRegister'],
@@ -113,3 +112,18 @@ export const useTraineeRegister = () => {
     },
   );
 };
+
+export const useCheckVerifyAccount = () => {
+  return useQuery(['checkVerifyAccount'], getCheckVerifyAccount, {
+    retry: false,
+    enabled:false,
+    staleTime: Infinity,
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
+    refetchInterval: false,
+		onError: (error) => {
+			toast.warning(FA_IR_ERROR.UnverifiedAccount);
+		},
+	});
+};
+

@@ -13,18 +13,24 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
 import SideMenuTooltip from "../../components/SideMenuTooltip";
 import { FA_IR } from "../../language";
+import { useCheckVerifyAccount } from '../../hooks';
+
 
 function Main() {
+  const {refetch} = useCheckVerifyAccount();
   const location = useLocation();
   const [formattedMenu, setFormattedMenu] = useState<
     Array<FormattedMenu | "divider">
   >([]);
   const sideMenuStore = useAppSelector(selectSimpleMenu);
   const sideMenu = () => nestedMenu(sideMenuStore, location);
-
   useEffect(() => {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
+
+  useEffect(() => { 
+    refetch();
+  }, []);
 
   return (
     <div className="py-2">

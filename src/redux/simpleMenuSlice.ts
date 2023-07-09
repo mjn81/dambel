@@ -61,30 +61,24 @@ const initialState: SimpleMenuState = {
 					title: FA_IR.GymUsers,
 					roles: [Role.GymOwner, Role.Trainer],
 				},
-				{
-					icon: 'StarHalf',
-					pathname: '/dashboard/gym/feedback/list',
-					title: FA_IR.GymFeedback,
-					roles: [Role.GymOwner, Role.Trainer],
-				},
 			],
 		},
 		{
 			icon: 'Calendar',
 			title: FA_IR.GymPlans,
 			pathname: '/dashboard/gym/plan/list',
-			roles: [Role.GymOwner, Role.Trainer],
-		},
-		{
-			icon: 'BookOpen',
-			title: FA_IR.MyPlans,
-			pathname: '/dashboard/plan/list',
-			roles: [Role.Trainer, Role.Trainee],
+			roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
 		},
 		{
 			icon: 'MessageSquare',
 			title: FA_IR.Chat,
 			pathname: '/dashboard/chat',
+			roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
+		},
+		{
+			icon: 'Inbox',
+			title: FA_IR.Requests,
+			pathname: '/dashboard/requests',
 			roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
 		},
 		{

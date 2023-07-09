@@ -9,7 +9,7 @@ import "./assets/css/app.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { HeaderApiLoader } from "./components/Wrappers/ProtectionWrapper";
+import { HeaderApiLoader } from "./components/Wrappers";
 const qc = new QueryClient(
 	{
 		defaultOptions: {

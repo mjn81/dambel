@@ -23,14 +23,14 @@ export const useCreateGym = () => {
 
 
 export const useGymLocationList = (location?: IMapLocation, geoStatus?: GeoLocationStatus) => {
-  return useQuery<IGymInfo>(
+  return useQuery<IGymInfo[]>(
 		['GET-GYM-LOC-LIST', location],
 		() => getGymLocationList(location),
 		{
 			onSuccess: (data) => {
 				console.log(data);
 			},
-			enabled: !!geoStatus && !geoStatus.isLoading,
+			enabled: !!geoStatus ? !geoStatus.isLoading : true,
 		}
 	);
 }

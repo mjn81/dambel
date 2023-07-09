@@ -1,4 +1,5 @@
 export interface IGymInfo {
+	id: string;
 	name: string;
 	logo_image: string;
 	background_image: string;
@@ -32,7 +33,8 @@ export interface IGymInfo {
       trainer: number;
       trainee: number[];
 		}
-	];
+	],
+	rate: number;
 }
 
 

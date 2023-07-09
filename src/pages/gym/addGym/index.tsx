@@ -30,11 +30,9 @@ const ValidateSchemaCompleteData = Yup.object({
 	city_id: Yup.string().required(FA_IR_ERROR.CityRequired),
 	description: Yup.string().required(FA_IR_ERROR.GymDescriptionRequired),
 	contacts: Yup.string().required(FA_IR_ERROR.GymContactsRequired),
-	map_location: Yup.object({
-		latitude: Yup.number().required(FA_IR_ERROR.GymLocationRequired),
-		longitude: Yup.number().required(FA_IR_ERROR.GymLocationRequired),
-		address: Yup.string().required(FA_IR_ERROR.GymAddress),
-	}),
+	latitude: Yup.string().required(FA_IR_ERROR.GymLocationRequired),
+	longitude: Yup.string().required(FA_IR_ERROR.GymLocationRequired),
+	address: Yup.string().required(FA_IR_ERROR.GymAddress),
 });
 
 
@@ -126,11 +124,9 @@ function Main() {
 				city_id: selectedCity,
 				description: descEditorData,
 				contacts: contactEditorData,
-				map_location: {
-					latitude: +currentLocation?.lat.toFixed(9),
-					longitude: +currentLocation?.lng.toFixed(9),
-					address: values.address,
-				},
+				latitude: currentLocation?.lat.toFixed(3),
+				longitude: currentLocation?.lng.toFixed(3),
+				address: values.address,
 			};
 			await ValidateSchemaCompleteData.validate(data);
 			if (!backgroundImage || !logo) {
@@ -138,14 +134,11 @@ function Main() {
 			}
 			const formData = new FormData();
 			Object.entries(data).forEach(([key, value]) => {
-				if (key === 'map_location') {
-					formData.append(key, JSON.stringify(value));
-				} else {
-					formData.append(key, value as string);
-				}
+				formData.append(key, value as string);
 			});
 			formData.append('background_image', backgroundImage);
 			formData.append('logo_image', logo);
+			formData.append('licnese_image', license);
 			createGym(formData)
 			
 		} catch (e: any) {

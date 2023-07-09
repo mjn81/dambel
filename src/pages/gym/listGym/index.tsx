@@ -1,175 +1,265 @@
-import _ from 'lodash';
-import clsx from 'clsx';
 import { useState, useRef } from 'react';
 import Button from '../../../base-components/Button';
-import Pagination from '../../../base-components/Pagination';
-import { FormInput, FormSelect } from '../../../base-components/Form';
 import Lucide from '../../../base-components/Lucide';
 import Tippy from '../../../base-components/Tippy';
 import { Dialog, Menu } from '../../../base-components/Headless';
-import Table from '../../../base-components/Table';
 import { FA_IR } from '../../../language';
+import { Link } from 'react-router-dom';
+import { useGymLocationList } from '../../../hooks';
+import exportFromJSON from 'export-from-json';
 
 function Main() {
-	const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
-	const deleteButtonRef = useRef(null);
-
+	const { data: gymList } = useGymLocationList();
+	const [deleteGymDialog, setDeleteGymDialog] = useState({
+		open: false,
+		id: '',
+	});
+	const deleteGymRef = useRef(null);
 	return (
 		<>
-			<h2 className="mt-10 text-lg font-medium intro-y">Categories</h2>
-			<div className="grid grid-cols-12 gap-6 mt-5">
-				<div className="flex flex-wrap items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
-					<Button variant="primary" className="mr-2 shadow-md">
-						{FA_IR.AddGym}
-					</Button>
-					<Menu>
+			<div className="flex rtl flex-col items-center mt-8 intro-y sm:flex-row">
+				<h2 className="ml-auto text-lg font-medium">{FA_IR.MyGymsList}</h2>
+				<div className="flex rtl w-full gap-2 mt-4 sm:w-auto sm:mt-0">
+					<Link to="/dashboard/gym/add">
+						<Button variant="primary" className="shadow-md">
+							{FA_IR.AddGym}
+						</Button>
+					</Link>
+					<Menu className="ml-auto sm:m-0">
 						<Menu.Button as={Button} className="px-2 !box">
 							<span className="flex items-center justify-center w-5 h-5">
 								<Lucide icon="Plus" className="w-4 h-4" />
 							</span>
 						</Menu.Button>
-						<Menu.Items className="w-40">
-							<Menu.Item>
-								<Lucide icon="Printer" className="w-4 h-4 mr-2" /> Print
+						<Menu.Items placement="bottom-start" className="mt-2 w-40">
+							<Menu.Item onClick={() => {
+								if  (!gymList) return;
+								exportFromJSON({ 
+									data: gymList,
+									fileName: 'gym-list-csv',
+									exportType: 'csv'
+								 });
+							}}>
+								<Lucide icon="FileText" className="w-4 h-4 ml-2" />
+								{FA_IR.ExportCsv}
 							</Menu.Item>
-							<Menu.Item>
-								<Lucide icon="FileText" className="w-4 h-4 mr-2" /> Export to
-								Excel
-							</Menu.Item>
-							<Menu.Item>
-								<Lucide icon="FileText" className="w-4 h-4 mr-2" /> Export to
-								PDF
+							<Menu.Item onClick={() => {
+								if  (!gymList) return;
+								exportFromJSON({ 
+									data: gymList,
+									fileName: 'gym-list-excel',
+									exportType: 'xls'
+								 });
+							}}>
+								<Lucide icon="Sheet" className="w-4 h-4 ml-2" />
+								{FA_IR.ExportExcle}
 							</Menu.Item>
 						</Menu.Items>
 					</Menu>
-					<div className="hidden mx-auto md:block text-slate-500">
-						Showing 1 to 10 of 150 entries
-					</div>
-					<div className="w-full mt-3 sm:w-auto sm:mt-0 sm:ml-auto md:ml-0">
-						<div className="relative w-56 text-slate-500">
-							<FormInput
-								type="text"
-								className="w-56 pr-10 !box"
-								placeholder="Search..."
-							/>
-							<Lucide
-								icon="Search"
-								className="absolute inset-y-0 right-0 w-4 h-4 my-auto mr-3"
-							/>
+				</div>
+			</div>
+			<div className="grid grid-cols-12 gap-6 mt-5 intro-y">
+				{gymList?.map((gymInfo, index) => (
+					<div
+						key={gymInfo.id}
+						className="col-span-12 intro-y lg:col-span-6 box flex flex-col"
+					>
+						<div className="h-[320px] relative before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-black/80 before:to-black/40 image-fit">
+							<img alt={gymInfo.name} src={gymInfo.background_image} />
+
+							<div className="absolute z-10 flex items-center w-full px-5 pt-6">
+								<div className="flex-none w-10 h-10 image-fit">
+									<img
+										alt={gymInfo.name}
+										className="rounded-full"
+										src={gymInfo.logo_image}
+									/>
+								</div>
+								<div className="ml-3 mr-auto text-white">
+									<Link to={`/gym/${gymInfo.id}`} className="font-medium">
+										{gymInfo.name}
+									</Link>
+									<div className="text-xs mt-0.5">{gymInfo.city.name}</div>
+								</div>
+								<Menu className="ml-3">
+									<Menu.Button
+										as="button"
+										className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20"
+									>
+										<Lucide
+											icon="MoreVertical"
+											className="w-4 h-4 text-white"
+										/>
+									</Menu.Button>
+									<Menu.Items className="rtl w-40">
+										<Menu.Item>
+											<Lucide icon="Edit2" className="w-4 h-4 ml-2" />
+											{FA_IR.GymEdit}
+										</Menu.Item>
+										<Menu.Item
+											onClick={() => {
+												setDeleteGymDialog({
+													open: true,
+													id: gymInfo.id,
+												});
+											}}
+										>
+											<Lucide icon="Trash" className="w-4 h-4 ml-2" />
+											{FA_IR.GymDelete}
+										</Menu.Item>
+									</Menu.Items>
+								</Menu>
+							</div>
+							<div className="absolute bottom-0 right-0 z-10 px-5 pb-6 text-white">
+								<span className="px-2 py-1 rounded bg-white/20">
+									{gymInfo.location.address}
+								</span>
+								{/* <a href="" className="block mt-3 text-xl font-medium">
+									{faker.}
+								</a> */}
+							</div>
 						</div>
+						<section>
+							<div className="p-5 pb-0 rtl">
+								<h6 className="mb-2">{FA_IR.GymDescription}</h6>
+								<p
+									className=" text-slate-600 dark:text-slate-500"
+									dangerouslySetInnerHTML={{
+										__html: gymInfo.description,
+									}}
+								></p>
+							</div>
+							<div className="p-5 rtl">
+								<h6 className="mb-2">{FA_IR.GymContacts}</h6>
+								<p
+									className="text-slate-600 dark:text-slate-500"
+									dangerouslySetInnerHTML={{
+										__html: gymInfo.contacts,
+									}}
+								></p>
+							</div>
+						</section>
+						<div className="mt-auto flex items-center px-5 py-3 border-t border-slate-200/60 dark:border-darkmode-400">
+							<Tippy
+								as="span"
+								className="flex items-center justify-center w-8 h-8 mr-2 border rounded-full intro-x border-slate-300 dark:border-darkmode-400 dark:bg-darkmode-300 dark:text-slate-300 text-slate-500"
+								content={FA_IR.GymUsers}
+							>
+								<Lucide icon="Users" className="w-3 h-3" />
+							</Tippy>
+							{gymInfo.plans.reduce(
+								(acc, plan) => acc + plan.trainee.length + 1,
+								0
+							)}
+							<Tippy
+								as="span"
+								className="flex items-center justify-center w-8 h-8 ml-6 mr-2 rounded-full intro-x text-primary bg-primary/10 dark:bg-darkmode-300 dark:text-slate-300"
+								content={FA_IR.GymFeedback}
+							>
+								<Lucide icon="Star" className="w-3 h-3" />
+							</Tippy>
+							{gymInfo.rate}
+
+							<Tippy
+								as={Link}
+								to={`/gym/${gymInfo.id}`}
+								className="flex items-center justify-center w-8 h-8 ml-auto text-white rounded-full intro-x bg-primary"
+								content={FA_IR.GymProfile}
+							>
+								<Lucide icon="LayoutDashboard" className="w-3 h-3" />
+							</Tippy>
+						</div>
+						{/* <div className="px-5 pt-3 pb-5 border-t border-slate-200/60 dark:border-darkmode-400">
+							<div className="flex w-full text-xs text-slate-500 sm:text-sm">
+								<div className="mr-2">
+									Comments:{' '}
+									<span className="font-medium">{faker.totals[0]}</span>
+								</div>
+								<div className="mr-2">
+									Views: <span className="font-medium">{faker.totals[1]}k</span>
+								</div>
+								<div className="ml-auto">
+									Likes: <span className="font-medium">{faker.totals[2]}k</span>
+								</div>
+							</div>
+							<div className="flex items-center w-full mt-3">
+								<div className="flex-none w-8 h-8 mr-3 image-fit">
+									<img
+										alt="Midone Tailwind HTML Admin Template"
+										className="rounded-full"
+										src={faker.photos[0]}
+									/>
+								</div>
+								<div className="relative flex-1 text-slate-600 dark:text-slate-200">
+									<FormInput
+										rounded
+										type="text"
+										className="pr-10 border-transparent bg-slate-100"
+										placeholder="Post a comment..."
+									/>
+									<Lucide
+										icon="Smile"
+										className="absolute inset-y-0 right-0 w-4 h-4 my-auto mr-3"
+									/>
+								</div>
+							</div>
+						</div> */}
 					</div>
-				</div>
-				{/* BEGIN: Data List */}
-				<div className="col-span-12 overflow-auto intro-y lg:overflow-visible">
-					<Table className="border-spacing-y-[10px] border-separate -mt-2">
-						<Table.Thead>
-							<Table.Tr>
-								<Table.Th className="border-b-0 whitespace-nowrap">
-									IMAGES
-								</Table.Th>
-								<Table.Th className="border-b-0 whitespace-nowrap">
-									CATEGORY NAME
-								</Table.Th>
-								<Table.Th className="border-b-0 whitespace-nowrap">
-									SLUG
-								</Table.Th>
-								<Table.Th className="text-center border-b-0 whitespace-nowrap">
-									STATUS
-								</Table.Th>
-								<Table.Th className="text-center border-b-0 whitespace-nowrap">
-									ACTIONS
-								</Table.Th>
-							</Table.Tr>
-						</Table.Thead>
-						<Table.Tbody>
-							{_.take(fakerData, 9).map((faker, fakerKey) => (
-								<Table.Tr key={fakerKey} className="intro-x">
-									<Table.Td className="first:rounded-l-md last:rounded-r-md w-40 bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
-										<div className="flex">
-											<div className="w-10 h-10 image-fit zoom-in">
-												<Tippy
-													as="img"
-													alt="Midone Tailwind HTML Admin Template"
-													className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-													src={faker.images[0]}
-													content={`Uploaded at ${faker.dates[0]}`}
-												/>
-											</div>
-											<div className="w-10 h-10 -ml-5 image-fit zoom-in">
-												<Tippy
-													as="img"
-													alt="Midone Tailwind HTML Admin Template"
-													className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-													src={faker.images[1]}
-													content={`Uploaded at ${faker.dates[1]}`}
-												/>
-											</div>
-											<div className="w-10 h-10 -ml-5 image-fit zoom-in">
-												<Tippy
-													as="img"
-													alt="Midone Tailwind HTML Admin Template"
-													className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-													src={faker.images[2]}
-													content={`Uploaded at ${faker.dates[2]}`}
-												/>
-											</div>
-										</div>
-									</Table.Td>
-									<Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
-										<a href="" className="font-medium whitespace-nowrap">
-											{faker.categories[0].name}
-										</a>
-										<div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-											Tags: {faker.categories[0].tags}
-										</div>
-									</Table.Td>
-									<Table.Td className="first:rounded-l-md last:rounded-r-md text-center bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
-										<a
-											className="flex items-center mr-3 text-slate-500"
-											href="#"
-										>
-											<Lucide icon="ExternalLink" className="w-4 h-4 mr-2" />
-											/categories/{faker.categories[0].slug}
-										</a>
-									</Table.Td>
-									<Table.Td className="first:rounded-l-md last:rounded-r-md w-40 bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
-										<div
-											className={clsx([
-												'flex items-center justify-center',
-												{ 'text-success': faker.trueFalse[0] },
-												{ 'text-danger': !faker.trueFalse[0] },
-											])}
-										>
-											<Lucide icon="CheckSquare" className="w-4 h-4 mr-2" />
-											{faker.trueFalse[0] ? 'Active' : 'Inactive'}
-										</div>
-									</Table.Td>
-									<Table.Td className="first:rounded-l-md last:rounded-r-md w-56 bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
-										<div className="flex items-center justify-center">
-											<a className="flex items-center mr-3" href="">
-												<Lucide icon="CheckSquare" className="w-4 h-4 mr-1" />
-												Edit
-											</a>
-											<a
-												className="flex items-center text-danger"
-												href="#"
-												onClick={(event) => {
-													event.preventDefault();
-													setDeleteConfirmationModal(true);
-												}}
-											>
-												<Lucide icon="Trash2" className="w-4 h-4 mr-1" /> Delete
-											</a>
-										</div>
-									</Table.Td>
-								</Table.Tr>
-							))}
-						</Table.Tbody>
-					</Table>
-				</div>
-				{/* END: Data List */}
-				{/* BEGIN: Pagination */}
-				<div className="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
+				))}
+
+				{/* BEGIN: Delete Modal */}
+				<Dialog
+					open={deleteGymDialog.open}
+					onClose={() => {
+						setDeleteGymDialog({
+							open: false,
+							id: '',
+						});
+					}}
+					initialFocus={deleteGymRef}
+				>
+					<Dialog.Panel>
+						<div className="p-5 text-center">
+							<Lucide
+								icon="XCircle"
+								className="w-16 h-16 mx-auto mt-3 text-danger"
+							/>
+							<div className="mt-5 text-3xl">{FA_IR.GymDelete}</div>
+							<div className="mt-2 text-slate-500">
+								{FA_IR.DeleteConfirm} <br />
+								{FA_IR.ProcessPermanent}
+							</div>
+						</div>
+						<div className="px-5 pb-8 text-center">
+							<Button
+								type="button"
+								variant="outline-secondary"
+								onClick={() => {
+									setDeleteGymDialog({
+										open: false,
+										id: '',
+									});
+								}}
+								className="w-24 ml-4"
+							>
+								{FA_IR.Cancel}
+							</Button>
+							<Button
+								type="button"
+								variant="danger"
+								className="w-24"
+								ref={deleteGymRef}
+								// TODO: delete logic here
+							>
+								{FA_IR.Delete}
+							</Button>
+						</div>
+					</Dialog.Panel>
+				</Dialog>
+				{/* END: Delete Modal */}
+
+				{/* BEGIN: Pagiantion */}
+				{/* <div className="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
 					<Pagination className="w-full sm:w-auto sm:mr-auto">
 						<Pagination.Link>
 							<Lucide icon="ChevronsLeft" className="w-4 h-4" />
@@ -195,52 +285,9 @@ function Main() {
 						<option>35</option>
 						<option>50</option>
 					</FormSelect>
-				</div>
-				{/* END: Pagination */}
+				</div> */}
+				{/* END: Pagiantion */}
 			</div>
-			{/* BEGIN: Delete Confirmation Modal */}
-			<Dialog
-				open={deleteConfirmationModal}
-				onClose={() => {
-					setDeleteConfirmationModal(false);
-				}}
-				initialFocus={deleteButtonRef}
-			>
-				<Dialog.Panel>
-					<div className="p-5 text-center">
-						<Lucide
-							icon="XCircle"
-							className="w-16 h-16 mx-auto mt-3 text-danger"
-						/>
-						<div className="mt-5 text-3xl">Are you sure?</div>
-						<div className="mt-2 text-slate-500">
-							Do you really want to delete these records? <br />
-							This process cannot be undone.
-						</div>
-					</div>
-					<div className="px-5 pb-8 text-center">
-						<Button
-							variant="outline-secondary"
-							type="button"
-							onClick={() => {
-								setDeleteConfirmationModal(false);
-							}}
-							className="w-24 mr-1"
-						>
-							Cancel
-						</Button>
-						<Button
-							variant="danger"
-							type="button"
-							className="w-24"
-							ref={deleteButtonRef}
-						>
-							Delete
-						</Button>
-					</div>
-				</Dialog.Panel>
-			</Dialog>
-			{/* END: Delete Confirmation Modal */}
 		</>
 	);
 }

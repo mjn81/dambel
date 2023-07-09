@@ -10,7 +10,10 @@ import ForgetPassword from "../pages/auth/forgetpass";
 import ForgetPasswordOtp from '../pages/auth/forgetpass/otp';	
 import ResetPassword from '../pages/auth/forgetpass/reset';	
 import NotFoundPage from "../pages/NotFoundPage";
-import { ProtectionWrapper } from "../components/Wrappers/ProtectionWrapper";
+import GymListPage from '../pages/gym/listGym';
+import VerifyPage from "../pages/VerifyPage";
+import LogoutPage from "../pages/LogoutPage";
+
 
 function Router() {
 	const routes = [
@@ -20,7 +23,6 @@ function Router() {
 		},
 		{
 			path: '/auth',
-			element: <ProtectionWrapper />,
 			children: [
 				{
 					path: 'login',
@@ -55,6 +57,18 @@ function Router() {
 				{
 					path: 'gym/add',
 					element: <AddGymPage />,
+				},
+				{
+					path: 'gym/list',
+					element: <GymListPage />,
+				},
+				{
+					path: 'verify',
+					element: <VerifyPage />,
+				},
+				{
+					path: 'logout',
+					element: <LogoutPage />,
 				},
 			],
 		},

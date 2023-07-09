@@ -1,10 +1,26 @@
 export const FA_IR = {
 	// gym
+	ExportCsv: 'خروجی CSV',
+	ExportExcle: 'خروجی اکسل',
+	AreYouSure: 'آیا مطمئن هستید؟',
+	DeleteConfirm: 'آیا مطمئن هستید که میخواهید این مورد را حذف کنید؟',
+	ProcessPermanent: 'این عملیات غیر قابل بازگشت است!',
+	Delete: 'حذف',
+	Cancel: 'لغو',
+	GymProfile: 'پروفایل باشگاه',
+	SendingEmail: 'در حال ارسال ایمیل...',
+	Requests: 'درخواست ها',
+	LoggingOut: 'خروج از حساب کاربری',
+	GymDelete: 'حذف باشگاه',
+	GymEdit: 'ویرایش باشگاه',
+	LogoImage: 'لوگوی باشگاه',
+	Print: 'چاپ',
 	EnterResetPassword: 'گذرواژه جدید را وارد کنید.',
 	ResetPassword: 'تغییر گذرواژه',
 	EnterOtpCode: 'کد تایید را وارد کنید',
 	OtpCode: 'کد تایید',
-	EnterEmailToReceiveCode: 'ایمیل خود را وارد کنید تا کد تایید برای شما ارسال شود',
+	EnterEmailToReceiveCode:
+		'ایمیل خود را وارد کنید تا کد تایید برای شما ارسال شود',
 	ForgetPassword: 'فراموشی گذرواژه',
 	UploadLicenseImage: 'بارگذاری عکس مجوز باشگاه',
 	MayGoneWrong: 'ممکن است اشتباه کرده باشید یا صفحه انتقال یافته باشد.',
@@ -14,8 +30,10 @@ export const FA_IR = {
 	UploadGymImage: 'بارگذاری عکس باشگاه',
 	SelectProvince: 'استان خود را انتخاب کنید',
 	GymLocation: 'موقعیت مکانی باشگاه',
-	EnterGymDescription: 'در این بخش میتوانید توضیحات تکمیلی باشگاه خود را وارد کنید...',
-	EnterGymContacts: 'در این بخش میتوانید تمامی راه های ارتباطی باشگاه خود را وارد کنید...',
+	EnterGymDescription:
+		'در این بخش میتوانید توضیحات تکمیلی باشگاه خود را وارد کنید...',
+	EnterGymContacts:
+		'در این بخش میتوانید تمامی راه های ارتباطی باشگاه خود را وارد کنید...',
 	GymContacts: 'اطلاعات تماس باشگاه',
 	Chat: 'پیام ها',
 	Dashboard: 'داشبورد',
@@ -26,9 +44,11 @@ export const FA_IR = {
 	Settings: 'تنظیمات',
 	GymPlans: 'دوره های باشگاه',
 	MyPlans: 'دوره های من',
+	SignedGymUsers: 'کاربران فعال باشگاه',
 	GymUsers: 'کاربران باشگاه',
-	FindAGym: 'باشگاه پیدا کن!', 
+	FindAGym: 'باشگاه پیدا کن!',
 	MyGyms: 'باشگاه های من',
+	MyGymsList: 'لیست باشگاه های من',
 	GymList: 'لیست باشگاه ها',
 	AddGym: 'افزودن باشگاه',
 	FindGym: 'یافتن باشگاه',
@@ -93,11 +113,12 @@ export const FA_IR = {
 	Profile: 'پروفایل',
 	Locationary: 'مکان یابی',
 	TraineeObvious: 'نظارت مربی',
-	FinancialManagment:'مدیریت مالی',
-	
+	FinancialManagment: 'مدیریت مالی',
 };
 
 export const FA_IR_ERROR = {
+	UnverifiedAccount:
+		'حساب کاربری شما تایید نشده است. لطفا از منوی تنظیمات اقدام به تایید آن کنید.',
 	ResetFailed: 'تغییر گذرواژه ناموفق بود',
 	ResetSuccess: 'گذرواژه با موفقیت تغییر کرد',
 	WrongOtp: 'کد تایید اشتباه است',

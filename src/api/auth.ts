@@ -1,5 +1,5 @@
 // import { IBaseUser, IGymOwner, ITrainee, ITrainer } from '../interfaces';
-import { post } from './methods';
+import { post, get } from './methods';
 
 export const postAuthLogin = async (data: {
   email: string;
@@ -29,12 +29,17 @@ export const postAuthRegisterTrainee =
       data,
     );
   };
+  
 export const postAuthResetPass = async (data: any) => {
 	return await post('/account/reset/', data);
 };
+
 export const postAuthCheckOtp = async (data: any) => {
 	return await post('/account/check-code/', data);
 };
+
 export const postAuthConfirmReset = async (data: any) => {
 	return await post('/account/reset/confirm/', data);
 };
+
+export const getCheckVerifyAccount = () => get('/account/verify/');
