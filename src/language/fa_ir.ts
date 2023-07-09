@@ -1,5 +1,16 @@
+import { Role } from "../constants";
 export const FA_IR = {
 	// gym
+	DeleteSelectedUsers: 'حذف کاربران انتخاب شده',
+	InviteTrainer: 'دعوت مربی',
+	DeleteUser: 'حذف کاربر',
+	Edit: 'ویرایش',
+	Active: 'فعال',
+	InActive: 'غیر فعال',
+	Copy: 'کپی',
+	Plan: 'دوره',
+	AccountStatus: 'وضعیت حساب',
+	FullName: 'نام کامل',
 	ExportCsv: 'خروجی CSV',
 	ExportExcle: 'خروجی اکسل',
 	AreYouSure: 'آیا مطمئن هستید؟',
@@ -76,6 +87,7 @@ export const FA_IR = {
 	FirstName: 'نام',
 	LastName: 'نام خانوادگی',
 	PhoneNumber: 'شماره تماس (..09)',
+	PhoneNumber2: 'شماره تماس',
 	Role: 'نقش',
 	Trainee: 'ورزشکار',
 	Trainer: 'مربی',
@@ -115,6 +127,12 @@ export const FA_IR = {
 	TraineeObvious: 'نظارت مربی',
 	FinancialManagment: 'مدیریت مالی',
 };
+
+export const FA_IR_ROLES = {
+	[Role.Trainee]: 'ورزشکار',
+	[Role.Trainer]: 'مربی',
+	[Role.GymOwner]: 'باشگاه دار',
+}
 
 export const FA_IR_ERROR = {
 	UnverifiedAccount:

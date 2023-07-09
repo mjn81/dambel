@@ -11,6 +11,7 @@ import ForgetPasswordOtp from '../pages/auth/forgetpass/otp';
 import ResetPassword from '../pages/auth/forgetpass/reset';	
 import NotFoundPage from "../pages/NotFoundPage";
 import GymListPage from '../pages/gym/listGym';
+import GymUserListPage from '../pages/gym/gymUsers';
 import VerifyPage from "../pages/VerifyPage";
 import LogoutPage from "../pages/LogoutPage";
 
@@ -61,6 +62,10 @@ function Router() {
 				{
 					path: 'gym/list',
 					element: <GymListPage />,
+				},
+				{
+					path: 'gym/users',
+					element: <GymUserListPage />,
 				},
 				{
 					path: 'verify',

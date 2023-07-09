@@ -1,3 +1,5 @@
+import { Role } from "../constants";
+
 export interface IGymInfo {
 	id: string;
 	name: string;
@@ -35,6 +37,20 @@ export interface IGymInfo {
 		}
 	],
 	rate: number;
+}
+
+export interface IGymUser {
+	id: string;
+	name: string;
+	profileImage: string;
+	role: Role;
+	email: string;
+	phoneNumber: string;
+	plan: {
+		id: string;
+		name: string;
+	};
+	status: boolean;
 }
 
 
