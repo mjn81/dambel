@@ -1,20 +1,15 @@
 import React, { useEffect } from 'react'
 import { FA_IR } from '../language'
 import LoadingIcon from '../base-components/LoadingIcon';
-import { useAppDispatch } from '../redux/hooks';
-import { clearAuth } from '../redux/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
 
 const LogoutPage = () => {
-	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
-	useEffect(() => {
-		dispatch(clearAuth());
-		setTimeout(() => {
-			navigate('/auth/login');
-		}, 1000);
-	}, []);
+	const {logout} = useLogout()
 	
+	useEffect(() => {
+		logout()
+	}, []);
+
 	return (
 		<section className="overflow-hidden grid place-items-center h-full">
 			<section className="flex flex-col justify-center items-center gap-4">

@@ -9,9 +9,11 @@ import clsx from "clsx";
 import { Transition } from "@headlessui/react";
 import { FA_IR } from "../../language";
 import { Link } from "react-router-dom";
+import { useLogout } from "../../hooks/useLogout";
 
 function Main() {
-  const [searchDropdown, setSearchDropdown] = useState(false);
+	const [searchDropdown, setSearchDropdown] = useState(false);
+	const {logout} = useLogout();
   const showSearchDropdown = () => {
     setSearchDropdown(true);
   };
@@ -113,7 +115,7 @@ function Main() {
 							{FA_IR.ResetPassword}
 						</Menu.Item>
 						<Menu.Divider className="bg-white/[0.08]" />
-						<Menu.Item className="rtl hover:bg-white/5">
+						<Menu.Item onClick={() => logout()} className="rtl hover:bg-white/5">
 							<Lucide icon="ToggleRight" className="w-4 h-4 ml-2" />{' '}
 							{FA_IR.Logout}
 						</Menu.Item>
