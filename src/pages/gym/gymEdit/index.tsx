@@ -7,19 +7,16 @@ import TomSelect from '../../../base-components/TomSelect';
 import Button from '../../../base-components/Button';
 import { FormInput, FormLabel } from '../../../base-components/Form';
 import { FA_IR, FA_IR_ERROR } from '../../../language';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, setIn } from 'formik';
 import { IAddGymForm } from '../../../interfaces';
 import { CustomErrorMessage } from '../../../components/Form/Error';
-import { useCreateGym, useGetCityList, useGetProvinceList } from '../../../hooks';
+import { useCreateGym, useGetCityList, useGetProvinceList, useGymDetail, useGymEdit } from '../../../hooks';
 import { toast } from 'react-toastify';
 import { useNavigatableMap } from '../../../hooks/useNavigatableMap';
 import { NavigatableMap } from '../../../components/NavigatableMap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-const initialValues: IAddGymForm = {
-	name: '',
-	address: '',
-};
+
 
 const validationSchema = Yup.object({
 	name: Yup.string().required(FA_IR_ERROR.GymNameRequired),
@@ -79,13 +76,23 @@ const contactEditorConfig = {
 
 // *["undo", "redo", "bold", "italic", "blockQuote", "ckfinder", "imageTextAlternative", "imageUpload", "heading", "imageStyle:full", "imageStyle:side", "link", "numberedList", "bulletedList", "mediaEmbed", "insertTable", "tableColumn", "tableRow", "mergeTableCells"]*
 function Main() {
-	const navigate = useNavigate();
+	const { id } = useParams();
+	const { data: details } = useGymDetail(id as string);
+	const initialValues: IAddGymForm = {
+		name: '',
+		address: '',
+	};
+
 	const [selectedProvince, setSelectedProvince] = useState<string>('#');
 	const { data: provinces } = useGetProvinceList();
 	const { data: cities } = useGetCityList(selectedProvince);
 	const [selectedCity, setSelectedCity] = useState<string>('');
-	const [descEditorData, setDescEditorData] = useState<string>('');
-	const [contactEditorData, setContactEditorData] = useState<string>('');
+	const [descEditorData, setDescEditorData] = useState<string>(
+		details?.description || '',
+	);
+	const [contactEditorData, setContactEditorData] = useState<string>(
+		details?.contacts || '',
+	);
 	const [backgroundImage, setBackgroundImage] = useState<any>(null);
 	const [logo, setLogo] = useState<any>(null);
 	const [license, setLicense] = useState<any>(null);
@@ -127,9 +134,25 @@ function Main() {
 		handleResetLocation,
 		setCurrentLocation,
 	} = useNavigatableMap();
-	const { mutate: createGym} = useCreateGym();
+	useEffect(() => {
+		if (!details) return;
+
+		setCurrentLocation({
+			lat: +details?.location.latitude,
+			lng: +details?.location.longitude,
+			zoom: 15,
+		});
+
+		setDescEditorData(details.description);
+		setContactEditorData(details.contacts);
+	}, [details]);
+	const navigate = useNavigate();
+	const { mutate: editGym} = useGymEdit();
 	const handleSubmit = async (values: typeof initialValues) => {
 		try {
+			if (!id) {
+				throw new Error(FA_IR_ERROR.GymIdRequired);
+			}
 			const data = {
 				city_id: +selectedCity,
 				latitude: currentLocation?.lat.toFixed(3),
@@ -150,9 +173,12 @@ function Main() {
 			formData.append('logo_image', logo);
 			formData.append('background_image', backgroundImage);
 			formData.append('license_image', license);
-			createGym(formData, {
+			editGym({
+				id: id,
+				data: formData,
+			}, {
 				onSuccess: () => {
-					toast.success(FA_IR.GymCreatedSuccessfully);
+					toast.success(FA_IR.GymEditSuccess);
 					navigate('/dashboard/gym/list');
 				}
 			})
@@ -165,7 +191,7 @@ function Main() {
 	return (
 		<>
 			<div className="flex rtl items-center mt-8 intro-y">
-				<h2 className="ml-auto text-lg font-medium">{FA_IR.AddGym}</h2>
+				<h2 className="ml-auto text-lg font-medium">{FA_IR.GymEdit}</h2>
 			</div>
 
 			<div className="mt-5 lg:max-w-3xl mx-auto intro-y">
@@ -343,7 +369,7 @@ function Main() {
 									variant="primary"
 									className="w-full lg:w-90"
 								>
-									{FA_IR.AddGym}
+									{FA_IR.Edit}
 								</Button>
 							</div>
 						</Form>

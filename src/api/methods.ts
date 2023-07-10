@@ -20,4 +20,10 @@ export const post = async (url: string, data:any) => {
   return await axios.post(url, data).then((res) => res.data); 
 }
 
+export const deleteApi = async (url: string) => {
+  return await axios.delete(url).then((res) => res.data); 
+}
 
+export const put = async (url: string, data: any) => {
+  return await axios.put(url, data).then((res) => res.data); 
+}

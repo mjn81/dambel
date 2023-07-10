@@ -15,6 +15,7 @@ export const postAuthRegisterOwner =
       data,
     );
   };
+
 export const postAuthRegisterTrainer =
   async (data: any) => {
     return await post(
@@ -22,6 +23,7 @@ export const postAuthRegisterTrainer =
       data,
     );
   };
+
 export const postAuthRegisterTrainee =
   async (data: any) => {
     return await post(
@@ -43,3 +45,5 @@ export const postAuthConfirmReset = async (data: any) => {
 };
 
 export const getCheckVerifyAccount = () => get('/account/verify/');
+
+export const getAccountProfile = () => get('/account/profile/');

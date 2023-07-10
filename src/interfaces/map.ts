@@ -3,6 +3,14 @@ export interface ILocation {
   lng: number;
 }
 
+export interface IMarker {
+	location: {
+		latitude: number;
+		longitude: number;
+	};
+	name?: string;
+} 
+
 export interface IMapLocation extends ILocation {
   zoom: number;
 }

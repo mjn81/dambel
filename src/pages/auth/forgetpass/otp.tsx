@@ -48,7 +48,7 @@ function Main() {
 					});
 				},
 				onError: (error: any) => {
-					console.log(error.response.status);
+					toast.error(FA_IR.Error);
 				},
 			}
 		);

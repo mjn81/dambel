@@ -1,4 +1,5 @@
 import { Role } from "../constants";
+import { IMapLocation } from "./map";
 
 export interface IGymInfo {
 	id: string;
@@ -25,17 +26,17 @@ export interface IGymInfo {
 		longitude: number;
 		address: string;
 	};
-	plans: [
+	plans: 
 		{
 			id: number;
 			name: string;
-			time_start: string;
-			time_end: string;
+			time_start: number;
+			time_end: number;
 			price: string;
       trainer: number;
       trainee: number[];
-		}
-	],
+		}[]
+	,
 	rate: number;
 }
 
@@ -49,7 +50,7 @@ export interface IGymUser {
 	plan: {
 		id: string;
 		name: string;
-	};
+	}[];
 	status: boolean;
 }
 
@@ -77,4 +78,12 @@ export interface IProvince {
 
 export interface ICity extends IProvince {
 	city: IProvince[];
+}
+
+
+export interface ISearchParams {
+  searchTerm?: string;
+  location?: IMapLocation;
+  rate?: string;
+  price?: string;
 }

@@ -11,6 +11,7 @@ export type Init = (
 interface LeafletMapLoaderProps extends React.ComponentPropsWithoutRef<"div"> {
   init: Init;
   darkMode?: boolean;
+  gymList?: any;
 }
 
 function LeafletMapLoader(props: LeafletMapLoaderProps) {

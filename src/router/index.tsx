@@ -12,8 +12,14 @@ import ResetPassword from '../pages/auth/forgetpass/reset';
 import NotFoundPage from "../pages/NotFoundPage";
 import GymListPage from '../pages/gym/listGym';
 import GymUserListPage from '../pages/gym/gymUsers';
+import GymProfile from '../pages/gym/gymProfile';
+import GymSearchListPage from '../pages/gym/searchGym';
+import GymPlanPage from '../pages/gym/gymPlans';
+import EditGymPage from '../pages/gym/gymEdit';
 import VerifyPage from "../pages/VerifyPage";
 import LogoutPage from "../pages/LogoutPage";
+import GymRequestPages from "../pages/gym/gymRequests";
+import UserProfile from '../pages/profile';
 
 
 function Router() {
@@ -56,8 +62,24 @@ function Router() {
 					element: <FindGymPage />,
 				},
 				{
+					path: 'gyms',
+					element: <GymSearchListPage />
+				},
+				{
+					path: 'gym/:id',
+					element: <GymProfile />,
+				},
+				{
+					path: 'plan/list',
+					element: <GymPlanPage />,
+				},
+				{
 					path: 'gym/add',
 					element: <AddGymPage />,
+				},
+				{
+					path: 'gym/edit/:id',
+					element: <EditGymPage />,
 				},
 				{
 					path: 'gym/list',
@@ -66,6 +88,14 @@ function Router() {
 				{
 					path: 'gym/users',
 					element: <GymUserListPage />,
+				},
+				{
+					path: 'requests',
+					element: <GymRequestPages />,
+				},
+				{
+					path: 'profile',
+					element: <UserProfile />,
 				},
 				{
 					path: 'verify',

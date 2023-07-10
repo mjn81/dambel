@@ -9,11 +9,14 @@ import Lucide from "../../../base-components/Lucide";
 import { TEHRAN_LOCATION } from "../../../constants";
 import { useGymLocationList } from "../../../hooks";
 import { GeoLocationStatus } from "../../../hooks/useNavigatableMap";
+import { useNavigate } from "react-router-dom";
+import { IMarker } from "../../../interfaces/map";
+import { IGymInfo } from "../../../interfaces";
 
-
+export const GymListArray: IGymInfo[] = [];
 
 function Main() {
-	
+	const navigate = useNavigate();
   const [currentLocation, setCurrentLocation] = useState(TEHRAN_LOCATION);
   const [geolocationStatus, setGeolocationStatus] = useState<GeoLocationStatus>({
     isAllowed: false,
@@ -55,10 +58,13 @@ function Main() {
 
   }, []);
 
-	const { data } = useGymLocationList(currentLocation, geolocationStatus);
-	console.log(data)
+	useGymLocationList(currentLocation, geolocationStatus);
   const handleSubmit = () => {
-		console.log(currentLocation)
+		navigate('/dashboard/gyms', {
+			state: {
+				location: currentLocation,
+			}
+		})
   }
 
   const handleResetLocation = () => {
@@ -117,8 +123,8 @@ function Main() {
 					)}
 
 					<Button
-            onClick={handleResetLocation}
-            disabled={geolocationStatus.isLoading}
+						onClick={handleResetLocation}
+						disabled={geolocationStatus.isLoading}
 						className="absolute z-30 bottom-3 right-3"
 						variant="linkedin"
 					>

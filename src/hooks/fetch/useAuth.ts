@@ -1,4 +1,5 @@
 import {
+  getAccountProfile,
   getCheckVerifyAccount,
   postAuthCheckOtp,
   postAuthConfirmReset,
@@ -127,3 +128,8 @@ export const useCheckVerifyAccount = () => {
 	});
 };
 
+export const useAccountProfile = () => {
+  return useQuery(['accountProfile'], getAccountProfile, {
+    retry: false,
+  });
+};

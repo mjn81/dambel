@@ -63,8 +63,8 @@ function Main() {
 					last_name: values.lastName,
 					email: values.email,
 					password: values.password,
+					phone_number: values.phoneNumber,
 				},
-				phone_number: values.phoneNumber,
 				weight: parseInt((values as any).weight),
 				height: parseInt((values as any).height),
 			};
@@ -82,8 +82,8 @@ function Main() {
 					last_name: values.lastName,
 					email: values.email,
 					password: values.password,
+					phone_number: values.phoneNumber,
 				},
-				phone_number: values.phoneNumber,
 			}
 			registerGymOwner(gymOwner, {
 				onSuccess: () => {
@@ -98,14 +98,12 @@ function Main() {
 					last_name: values.lastName,
 					email: values.email,
 					password: values.password,
+					phone_number: values.phoneNumber,
 				},
-				phone_number: {
-					number: values.phoneNumber,
-				}
 			};
 			registerTrainer(trainer, {
 				onSuccess: () => {
-					navigate('/login');
+					navigate('/auth/login');
 				},
 			});
 		}

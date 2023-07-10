@@ -59,22 +59,22 @@ const initialState: SimpleMenuState = {
 					icon: 'Users',
 					pathname: '/dashboard/gym/users',
 					title: FA_IR.GymUsers,
-					roles: [Role.GymOwner, Role.Trainer],
+					roles: [Role.GymOwner],
 				},
 			],
 		},
 		{
 			icon: 'Calendar',
 			title: FA_IR.GymPlans,
-			pathname: '/dashboard/gym/plan/list',
-			roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
+			pathname: '/dashboard/plan/list',
+			roles: [Role.Trainee],
 		},
-		{
-			icon: 'MessageSquare',
-			title: FA_IR.Chat,
-			pathname: '/dashboard/chat',
-			roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
-		},
+		// {
+		// 	icon: 'MessageSquare',
+		// 	title: FA_IR.Chat,
+		// 	pathname: '/dashboard/chat',
+		// 	roles: [Role.GymOwner, Role.Trainer, Role.Trainee],
+		// },
 		{
 			icon: 'Inbox',
 			title: FA_IR.Requests,
@@ -115,6 +115,27 @@ export const simpleMenuSlice = createSlice({
   reducers: {},
 });
 
-export const selectSimpleMenu = (state: RootState) => state.simpleMenu.menu.filter((item) => item ===  "divider" ||item.roles.includes(state.auth.role as Role));
+export const selectSimpleMenu = (state: RootState) =>
+{	
+	const filteredList = [];
+	for (let i = 0; i < state.simpleMenu.menu.length; i++) {
+		const item = state.simpleMenu.menu[i];
+		if (item === 'divider') {
+			filteredList.push(item);
+			continue;
+		}
+		if (item.roles.includes(state.auth.role as Role)) {
+			filteredList.push({
+				...item,
+				subMenu: item.subMenu?.filter((subItem) =>
+					subItem.roles.includes(state.auth.role as Role)
+				),
+			 });
+		}
+	}	
+	return filteredList;
+	
+	}
+;
 
 export default simpleMenuSlice.reducer;

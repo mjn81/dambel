@@ -23,7 +23,7 @@ function Main() {
     Array<FormattedMenu | "divider">
   >([]);
   const sideMenuStore = useAppSelector(selectSimpleMenu);
-  const sideMenu = () => nestedMenu(sideMenuStore, location);
+  const sideMenu = () => nestedMenu(sideMenuStore as any, location);
   useEffect(() => {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
