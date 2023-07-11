@@ -70,7 +70,7 @@ export const useMyGymList = () => {
 }
 
 export const useGymPlan = () => {
-	return useQuery<IGymInfo>(
+	return useQuery<IGymInfo[]>(
 		['GET-GYM-PLAN'],
 		getMyGymPlanList,
 	);
