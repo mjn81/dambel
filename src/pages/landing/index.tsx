@@ -31,16 +31,16 @@ const Main = () => {
                                 variant="outline-secondary"
                                 className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-primary text-white"
                             >
-                            {  !auth.access ? `${FA_IR.Login} / ${FA_IR.Register}` : FA_IR.Dashboard}
+                                {!auth.access ? `${FA_IR.Login} / ${FA_IR.Register}` : FA_IR.Dashboard}
                             </Button>
                         </Link>
                     </div>
 
                     <ul className='w-5/12 menu hover:cursor-pointer '>
-                        <li className=''>مربیان</li>
-                        <li>باشگاه ها</li>
-                        <li>تماس  با ما </li>
-                        <li>درباره ما</li>
+                        <li className=''><a href="#one">مربیان</a> </li>
+                        <li><a href="#one"> باشگاه ها</a></li>
+                        <li><a href="#one"> تماس با ما</a></li>
+                        <li><a href="#one"> درباره ما</a></li>
                     </ul>
 
                     <div id='logo'>
@@ -50,8 +50,8 @@ const Main = () => {
                 </div>
 
                 <button id='mmenubtn' className='border bg-primary rounded-full w-16 h-16 fixed top-10 right-10 text-white z-10 lg:hidden' onClick={open}>|||</button>
-              
-                <div className="mobile-menu p-5 overflow-hidden -right-96 ">
+
+                <div className="mobile-menu p-5 overflow-hidden -right-96 lg:hidden">
                     <div className=' '>
                         <Link to="/auth/login">
                             <Button
@@ -65,10 +65,10 @@ const Main = () => {
                     </div>
 
                     <ul className='rtl w-full menu hover:cursor-pointer mt-2 '>
-                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'>مربیان</li>
-                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'>باشگاه ها</li>
-                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'>تماس  با ما </li>
-                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'>درباره ما</li>
+                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'><a href="#one">مربیان</a></li>
+                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'><a href="#one"> باشگاه ها</a></li>
+                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'><a href="#one"> تماس با ما</a></li>
+                        <li className='p-5 text-gray-50 text-lg transition-all duration-500 hover:text-black'><a href="#one"> درباره ما</a></li>
                     </ul>
                 </div>
                 <main id='main' className='ltr '>
@@ -101,21 +101,21 @@ const Main = () => {
                             <p className='p-3'>دمبل به شما این امکان را میدهد که شهریه های واریزی ورزشکاران را مدیریت کرده و حقوق مربیان خود را آنلاین پرداخت کنید!</p>
                         </figure>
                     </div>
-                    <div className="row3 p-5 bg-primary">
+                    <div id='one' className="row3 p-5 bg-primary">
                         <div className='w-3/4 rounded-lg'>
-                            <h2 className='w-full text-center p-8 '>دمبل در کنار شماست تا به سلامت جسم شما کمک کند</h2>
-                            <div className='w-1/3 p-10 '>
+                            <h2 className='w-full text-center p-8 leading-10'>دمبل در کنار شماست تا به سلامت جسم شما کمک کند</h2>
+                            <div className='w-full lg:w-1/3  p-10 leading-10'>
                                 نفر
                                 1000
                                 مربی
-                                <i className="fa-sharp fa-solid fa-person-chalkboard"></i>
+                                <i className="fa-sharp fa-solid fa-person-chalkboard p-3"></i>
                             </div>
-                            <div className='w-1/3 p-10 '>
+                            <div className='w-full lg:w-1/3  p-10 leading-10'>
                                 عدد
                                 1000
-                                باشگاه <i className="fa-solid fa-dumbbell"></i>
+                                باشگاه <i className="fa-solid fa-dumbbell p-3"></i>
                             </div>
-                            <div className='w-1/3 p-10 '>
+                            <div className='w-full lg:w-1/3 p-10 leading-10'>
                                 نفر
                                 1000
                                 ورزشکار   <i className="fa-solid fa-person-walking"></i>
@@ -124,12 +124,12 @@ const Main = () => {
                     </div>
                 </main>
 
-                <footer className='border'>
-                    <ul className='w-5/12  text-lg'>
-                        <li>مربیان</li>
-                        <li>باشگاه ها</li>
-                        <li>تماس  با ما </li>
-                        <li>درباره ما</li>
+                <footer className='border '>
+                    <ul className='w-5/12  text-lg cursor-pointer'>
+                        <li className='p-5 text-lg transition-all duration-500 hover:font-bold'><a href="#one">مربیان</a> </li>
+                        <li className='p-5 text-lg transition-all duration-500 hover:font-bold'><a href="#one"> باشگاه ها</a></li>
+                        <li className='p-5 text-lg transition-all duration-500 hover:font-bold'><a href="#one"> تماس با ما</a></li>
+                        <li className='p-5 text-lg transition-all duration-500 hover:font-bold'><a href="#one"> درباره ما</a></li>
                     </ul>
 
                     <div className='w-full text-center p-5'>
