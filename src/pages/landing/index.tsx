@@ -107,7 +107,8 @@ const Main = () => {
                             <div className='w-1/3 p-10 '>
                                 نفر
                                 1000
-                                مربی<i className="fa-duotone fa-chalkboard-user"></i>
+                                مربی
+                                <i className="fa-sharp fa-solid fa-person-chalkboard"></i>
                             </div>
                             <div className='w-1/3 p-10 '>
                                 عدد
