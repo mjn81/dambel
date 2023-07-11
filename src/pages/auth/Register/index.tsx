@@ -87,7 +87,7 @@ function Main() {
 			}
 			registerGymOwner(gymOwner, {
 				onSuccess: () => {
-					navigate('/login');
+					navigate('/auth/login');
 				},
 			});
 		}
