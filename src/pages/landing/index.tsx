@@ -28,7 +28,7 @@ const Main = () => {
                         <Link to={!auth.access ? "/auth/login" : "/dashboard"}>
                             <Button
                                 type="button"
-                                variant="outline-secondary"
+                                variant="primary"
                                 className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-primary text-white"
                             >
                                 {!auth.access ? `${FA_IR.Login} / ${FA_IR.Register}` : FA_IR.Dashboard}
@@ -53,13 +53,13 @@ const Main = () => {
 
                 <div className="mobile-menu p-5 overflow-hidden -right-96 lg:hidden">
                     <div className=' '>
-                        <Link to="/auth/login">
+                        <Link to={!auth.access ? "/auth/login" : "/dashboard"}>
                             <Button
                                 type="button"
-                                variant="outline-secondary"
-                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 text-white"
+                                variant="primary"
+                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-primary text-white"
                             >
-                                {FA_IR.Login} / {FA_IR.Register}
+                                {!auth.access ? `${FA_IR.Login} / ${FA_IR.Register}` : FA_IR.Dashboard}
                             </Button>
                         </Link>
                     </div>
