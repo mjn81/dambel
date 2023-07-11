@@ -11,8 +11,9 @@ export const HeaderApiLoader = () => {
 	useEffect(() => {
 		if (auth.access) {
 			setApiHeader(auth.access);
-		} else if (!location.pathname.includes('/auth')) {
+		} else if (!location.pathname.includes('/auth') && location.pathname !== '/') {
 			setApiHeader('');
+			console.log('auth included');
 			navigate('/auth/login');
 		}
 	}, [auth]);

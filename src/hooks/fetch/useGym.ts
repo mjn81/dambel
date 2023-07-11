@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query"
-import { deleteGym, getAvailableProvinceList, getCityList, getGymDetail, getGymList, getGymLocationList, getGymUsersList, getMyGymList, getMyGymPlanList, postCommentTrainee, postCreateGym, postCreateGymPlan, postEditGym } from "../../api"
+import { deleteGym, getAvailableProvinceList, getCityList, getCompleteTrainersList, getGymDetail, getGymList, getGymLocationList, getGymUsersList, getMyGymList, getMyGymPlanList, postCommentTrainee, postCreateGym, postCreateGymPlan, postEditGym } from "../../api"
 import { IMapLocation } from "../../interfaces/map";
 import { IAddGym, ICity, IGymInfo, IProvince, ISearchParams } from "../../interfaces";
 import { GeoLocationStatus } from "../useNavigatableMap";
@@ -101,4 +101,11 @@ export const useGymUsers = (gymId: string) => {
 
 export const usePostComment = () => {
 	return useMutation<undefined, any, any>(['POST-COMMENT'], (data) => postCommentTrainee(data));
+}
+
+export const useGetTrainersCompleteList = () => {
+	return useQuery<any>(
+		['GET-TRAINERS-COMPLETE-LIST'],
+		getCompleteTrainersList,
+	);
 }

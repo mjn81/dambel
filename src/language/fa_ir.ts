@@ -12,7 +12,7 @@ export const FA_IR = {
 	SelectTrainer: 'انتخاب مربی',
 	InvitationSent: 'دعوتنامه ارسال شد.',
 	SendInvitaion: 'ارسال دعوتنامه',
-	TrainerId: 'شناسه کاربری مربی را وارد کنید.',
+	TrainerId: 'شناسه مربی',
 	TraineeAccepted: 'ورزشکار پذیرفته شد.',
 	AcceptTrainee: 'تایید ورزشکار',
 	FullNameOwner: 'نام کامل صاحب باشگاه',

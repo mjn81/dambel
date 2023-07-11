@@ -7,12 +7,11 @@ import Lucide from '../../../base-components/Lucide';
 import Tippy from '../../../base-components/Tippy';
 import { Dialog, Menu } from '../../../base-components/Headless';
 import Table from '../../../base-components/Table';
-import { IGymUser } from '../../../interfaces';
 import { Role } from '../../../constants';
 import { FA_IR, FA_IR_ERROR, FA_IR_ROLES } from '../../../language';
 import exportFromJSON from 'export-from-json';
 import { Link } from 'react-router-dom';
-import { useGymUsers, useMyGymList } from '../../../hooks';
+import { useGetTrainersCompleteList, useGymUsers, useMyGymList } from '../../../hooks';
 import { Field, Form, Formik } from 'formik';
 import { usePostTrainerRequest } from '../../../hooks/fetch/useRequest';
 import { toast } from 'react-toastify';
@@ -32,11 +31,11 @@ const TableTitle = [
 
 function Main() {
 
+	const {data: trainersCompleteList} = useGetTrainersCompleteList();
 	const [selectedGym, setSelectedGym] = useState<string>('');
 	const {data: usersList} = useGymUsers(selectedGym);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 	const { data: gymList } = useMyGymList();
-	
 	const {mutate: inviteTrainerMutate} = usePostTrainerRequest();
 	const [openInviteTrainer, setOpenInviteTrainer] = useState<boolean>(false);
 	const inviteTrainerRef = useRef(null);
@@ -247,7 +246,16 @@ function Main() {
 													type="text"
 													className="mt-2"
 													placeholder={FA_IR.TrainerId}
-												/>
+													list="trainer"
+												>
+													<datalist id="trainer">
+														{trainersCompleteList?.map((trainer: any) => (
+															<option
+																value={trainer.id}
+															>{`${trainer.user.first_name} ${trainer.user.last_name}`}</option>
+														))}
+													</datalist>
+												</Field>
 											</div>
 										</div>
 									</div>

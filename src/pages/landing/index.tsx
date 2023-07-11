@@ -29,7 +29,7 @@ const Main = () => {
                             <Button
                                 type="button"
                                 variant="outline-secondary"
-                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-orange-600 text-white"
+                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-primary text-white"
                             >
                             {  !auth.access ? `${FA_IR.Login} / ${FA_IR.Register}` : FA_IR.Dashboard}
                             </Button>
@@ -49,15 +49,15 @@ const Main = () => {
 
                 </div>
 
-                <button id='mmenubtn' className='border bg-orange-600 rounded-full w-16 h-16 fixed top-10 right-10 text-white z-10 lg:hidden' onClick={open}>|||</button>
+                <button id='mmenubtn' className='border bg-primary rounded-full w-16 h-16 fixed top-10 right-10 text-white z-10 lg:hidden' onClick={open}>|||</button>
               
                 <div className="mobile-menu p-5 overflow-hidden -right-96 ">
                     <div className=' '>
-                        <Link to="/Login">
+                        <Link to="/auth/login">
                             <Button
                                 type="button"
                                 variant="outline-secondary"
-                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 bg-orange-600 text-white"
+                                className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0 text-white"
                             >
                                 {FA_IR.Login} / {FA_IR.Register}
                             </Button>
@@ -79,7 +79,7 @@ const Main = () => {
 
                             <figure className='w-1/2 flex justify-center p-5'><img src={LandingImage} alt="landing" /></figure>
 
-                            <figure id='neveshte' className='bg-orange-600 w-1/2 px-11'>
+                            <figure id='neveshte' className='bg-primary w-1/2 px-11'>
                                 <img src={LandingImage2} alt="" />
                             </figure>
 
@@ -101,7 +101,7 @@ const Main = () => {
                             <p className='p-3'>دمبل به شما این امکان را میدهد که شهریه های واریزی ورزشکاران را مدیریت کرده و حقوق مربیان خود را آنلاین پرداخت کنید!</p>
                         </figure>
                     </div>
-                    <div className="row3 p-5">
+                    <div className="row3 p-5 bg-primary">
                         <div className='w-3/4 rounded-lg'>
                             <h2 className='w-full text-center p-8 '>دمبل در کنار شماست تا به سلامت جسم شما کمک کند</h2>
                             <div className='w-1/3 p-10 '>
