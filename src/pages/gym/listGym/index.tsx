@@ -8,21 +8,33 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCreateGymPlan, useDeleteGym, useGymUsers, useMyGymList } from '../../../hooks';
 import exportFromJSON from 'export-from-json';
 import { toast } from 'react-toastify';
-import { set } from 'lodash';
 import { Field, Form, Formik } from 'formik';
 import { FormInput, FormLabel, FormSelect } from '../../../base-components/Form';
-import { DaytimeToSecond } from '../../../utils/time';
 import { useAppSelector } from '../../../redux/hooks';
 import { Role } from '../../../constants';
+import * as Yup from 'yup';
+import TomSelect from '../../../base-components/TomSelect';
+
 
 const initialValues = {
 	name: '',
 	timeStart: '',
 	timeEnd: '',
-	price: '',
+	price: 0,
 	trainer: -1,
 };
 
+const ValidationSchema = Yup.object({
+	name: Yup.string().required(FA_IR_ERROR.Required),
+	timeStart: Yup.string()
+		.matches(/\d\:\d/g)
+		.required(FA_IR_ERROR.Required),
+	timeEnd: Yup.string()
+		.matches(/\d\:\d/g)
+		.required(FA_IR_ERROR.Required),
+	price: Yup.number().required(FA_IR_ERROR.Required),
+	trainer: Yup.number().positive().required(FA_IR_ERROR.Required),
+});
 
 function Main() {
 	const { data: gymList, refetch: refetchGymList } = useMyGymList();
@@ -40,37 +52,38 @@ function Main() {
 	});
 	const { data: usersList } = useGymUsers(selectedGym.id);
 	const addPlanRef = useRef(null);
-	
+	const [selectedTrainees, setSelectedTranees] = useState<string[]>([]);
 	const {mutate: postCreateGymPlan} = useCreateGymPlan();
-	
 	const onSubmitAddPlan = (data: typeof initialValues) => {		
-		if (!selectedGym.id) {
+		if (!selectedGym.id || selectedTrainees.includes('#')) {
+			toast.error(FA_IR.Error);
 			return;
 		}
-		postCreateGymPlan({
-			id: selectedGym.id,
-			data: {
-				name: data.name,
-				price: data.price,
-				time_end: DaytimeToSecond(data.timeEnd),
-				time_start: DaytimeToSecond(data.timeStart),
-				comment_set: [],
-				trainer: data.trainer,
-				trainee: [],
+		postCreateGymPlan(
+			{
+				id: selectedGym.id,
+				data: {
+					name: data.name,
+					price: data.price,
+					time_end:data.timeEnd,
+					time_start: data.timeStart,
+					user_id: +data.trainer,
+					trainee: selectedTrainees,
+				},
 			},
-		}, {
-			onSuccess: () => {
-				setSelectedGym({
-					id: '',
-					open: false,
-				});
-				toast.success(FA_IR.AddGymPlanSuccess);
+			{
+				onSuccess: () => {
+					setSelectedGym({
+						id: '',
+						open: false,
+					});
+					toast.success(FA_IR.AddGymPlanSuccess);
+				},
 			}
-		});
+		);
 	}
 
 	const auth = useAppSelector(state => state.auth);
-	console.log(usersList)
 	return (
 		<>
 			<div className="flex rtl flex-col items-center mt-8 intro-y sm:flex-row">
@@ -218,18 +231,7 @@ function Main() {
 						<div className="mt-auto flex items-center px-5 py-3 border-t border-slate-200/60 dark:border-darkmode-400">
 							<Tippy
 								as="span"
-								className="flex items-center justify-center w-8 h-8 mr-2 border rounded-full intro-x border-slate-300 dark:border-darkmode-400 dark:bg-darkmode-300 dark:text-slate-300 text-slate-500"
-								content={FA_IR.GymUsers}
-							>
-								<Lucide icon="Users" className="w-3 h-3" />
-							</Tippy>
-							{gymInfo.plans.reduce(
-								(acc, plan) => acc + plan.trainee.length + 1,
-								0
-							)}
-							<Tippy
-								as="span"
-								className="flex items-center justify-center w-8 h-8 ml-6 mr-2 rounded-full intro-x text-primary bg-primary/10 dark:bg-darkmode-300 dark:text-slate-300"
+								className="flex items-center justify-center w-8 h-8 mr-2 rounded-full intro-x text-primary bg-primary/10 dark:bg-darkmode-300 dark:text-slate-300"
 								content={FA_IR.GymFeedback}
 							>
 								<Lucide icon="Star" className="w-3 h-3" />
@@ -328,7 +330,11 @@ function Main() {
 					initialFocus={addPlanRef}
 				>
 					<Dialog.Panel>
-						<Formik initialValues={initialValues} onSubmit={onSubmitAddPlan}>
+						<Formik
+							initialValues={initialValues}
+							validattionSchema={ValidationSchema}
+							onSubmit={onSubmitAddPlan}
+						>
 							<Form>
 								<div className="p-5 text-center">
 									<Lucide
@@ -345,7 +351,12 @@ function Main() {
 										</div>
 										<div className="col-span-12 sm:col-span-6">
 											<FormLabel>{FA_IR.PlanPrice}</FormLabel>
-											<Field as={FormInput} type="number" name="price" />
+											<Field
+												as={FormInput}
+												min={0}
+												type="number"
+												name="price"
+											/>
 										</div>
 										<div className="col-span-12 sm:col-span-6">
 											<FormLabel>{FA_IR.TimeStart}</FormLabel>
@@ -353,7 +364,7 @@ function Main() {
 												as={FormInput}
 												type="text"
 												name="timeStart"
-												placeHolder={FA_IR.ExampleTimeStart}
+												placeholder={FA_IR.ExampleTimeStart}
 											/>
 										</div>
 
@@ -363,21 +374,39 @@ function Main() {
 												as={FormInput}
 												type="text"
 												name="timeEnd"
-												placeHolder={FA_IR.ExampleTimeStart}
+												placeholder={FA_IR.ExampleTimeStart}
 											/>
 										</div>
 										<div className="col-span-12 sm:col-span-6">
 											<FormLabel>{FA_IR.Trainer}</FormLabel>
 											<Field as={FormSelect} name="trainer">
-												<option value="#">{FA_IR.SelectTrainer}</option>
+												<option value={-1}>{FA_IR.SelectTrainer}</option>
 												{usersList
 													?.filter((user: any) => user.role === Role.Trainer)
 													.map((user: any) => (
 														<option key={user.id} value={user.id}>
-															{`${user.first_name} ${user.last_name}`}
+															{`${user.first_name} ${user.last_name} ${user.id}`}
 														</option>
 													))}
 											</Field>
+										</div>
+										<div className="col-span-12 sm:col-span-6">
+											<FormLabel>{FA_IR.Members}</FormLabel>
+											<TomSelect
+												multiple
+												value={selectedTrainees}
+												onChange={setSelectedTranees}
+												className='ltr'
+											>
+												<option value="#">{FA_IR.SelectMembers}</option>
+												{usersList
+													?.filter((user: any) => user.role === Role.Trainee)
+													.map((user: any) => (
+														<option key={user.id} value={user.id}>
+															{`${user.first_name} ${user.last_name} ${user.id}`}
+														</option>
+													))}
+											</TomSelect>
 										</div>
 									</div>
 								</div>

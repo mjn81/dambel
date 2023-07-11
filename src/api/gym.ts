@@ -56,6 +56,4 @@ export const getGymUsersList = (id: string) => get(`/gym/users/${id}`);
 export const postCommentTrainee = (data: any) => post('/gym/comment/create/', data);
 
 export const getCompleteTrainersList = (params: any) =>
-	get('/account/trainers/', {
-		params,
-	}); 
+	get('/account/trainers/'); 

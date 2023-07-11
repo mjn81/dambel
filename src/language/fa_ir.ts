@@ -1,7 +1,9 @@
 import { Role } from "../constants";
 export const FA_IR = {
 	// gym
-	
+	SelectMembers: 'انتخاب اعضا',
+	Members: 'اعضا', 
+	SearchTrainerName: 'جستجو بر اساس نام مربی',
 	CommentAdded: 'نظر اضافه شد.',
 	Error: 'خطا',
 	AddComment: 'افزودن نظر',
@@ -20,7 +22,7 @@ export const FA_IR = {
 	Uid: 'شناسه کاربری',
 	Id: 'شناسه',
 	Date: 'تاریخ',
-	ExampleTimeStart: 'به فرمت 00:00:00',
+	ExampleTimeStart: 'به فرمت 00:00',
 	TimeEnd: 'زمان پایان',
 	TimeStart: 'زمان شروع',
 	PlanName: 'نام دوره',
@@ -188,6 +190,8 @@ export const FA_IR_ROLES = {
 }
 
 export const FA_IR_ERROR = {
+	Required: 'این فیلد اجباری است',
+	SelectTrainer: 'لطفا یک مربی انتخاب کنید',
 	PlanRequired: 'لطفا یک دوره انتخاب کنید',
 	CommentAddError: 'خطا در ارسال نظر',
 	AcceptedError: 'خطا در تایید',

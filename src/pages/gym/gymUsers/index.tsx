@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { useState, useRef } from 'react';
 import Button from '../../../base-components/Button';
-import Pagination from '../../../base-components/Pagination';
 import { FormCheck, FormInput, FormLabel, FormSelect } from '../../../base-components/Form';
 import Lucide from '../../../base-components/Lucide';
 import Tippy from '../../../base-components/Tippy';
@@ -11,10 +10,10 @@ import { Role } from '../../../constants';
 import { FA_IR, FA_IR_ERROR, FA_IR_ROLES } from '../../../language';
 import exportFromJSON from 'export-from-json';
 import { Link } from 'react-router-dom';
-import { useGetTrainersCompleteList, useGymUsers, useMyGymList } from '../../../hooks';
-import { Field, Form, Formik } from 'formik';
-import { usePostTrainerRequest } from '../../../hooks/fetch/useRequest';
 import { toast } from 'react-toastify';
+import TomSelect from '../../../base-components/TomSelect';
+import { useGetTrainersCompleteList, useGymUsers, useMyGymList } from '../../../hooks';
+import { usePostTrainerRequest } from '../../../hooks/fetch/useRequest';
 
 
 const initialValues = {
@@ -22,8 +21,8 @@ const initialValues = {
 }
 
 const TableTitle = [
-	FA_IR.FullName,
 	FA_IR.Id,
+	FA_IR.FullName,
 	FA_IR.PhoneNumber2,
 	FA_IR.Role,
 ];
@@ -39,20 +38,25 @@ function Main() {
 	const {mutate: inviteTrainerMutate} = usePostTrainerRequest();
 	const [openInviteTrainer, setOpenInviteTrainer] = useState<boolean>(false);
 	const inviteTrainerRef = useRef(null);
-	const inviteTrainer = (value: typeof initialValues, { resetForm }: any) => {
+	const [selectedTrainer, setSelectedTrainer] = useState<string>('');
+	const inviteTrainer = () => {
+		if (selectedTrainer === '#') {
+			toast.error(FA_IR_ERROR.SelectTrainer);
+			return;
+		} 
 		inviteTrainerMutate(
 			{
-				...value,
+				trainer_id: selectedTrainer,
 				gym_id: selectedGym,
 			},
 			{
 				onSuccess: () => {
 					setOpenInviteTrainer(false);
 					toast.success(FA_IR.InvitationSent);
-					resetForm();
+					setSelectedTrainer('');
 				},
 				onError: () => {
-					resetForm();
+					setSelectedTrainer('');
 					toast.error(FA_IR_ERROR.InvitaionNotSent);
 				},
 			}
@@ -182,7 +186,7 @@ function Main() {
 											type="checkbox"
 										/>
 									</Table.Td>
-									<Table.Td className="first:rounded-l-md last:rounded-r-md text-center bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
+									<Table.Td className="text-left first:rounded-l-md last:rounded-r-md bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
 										{faker.id}
 									</Table.Td>
 									<Table.Td className="first:rounded-l-md last:rounded-r-md !py-3.5 bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
@@ -226,64 +230,61 @@ function Main() {
 					initialFocus={inviteTrainerRef}
 				>
 					<Dialog.Panel>
-						<Formik initialValues={initialValues} onSubmit={inviteTrainer}>
-							{({ isSubmitting }) => (
-								<Form>
-									<div className="p-5 text-center">
-										<Lucide
-											icon="PlusCircle"
-											className="w-16 h-16 mx-auto mt-3 text-primary"
-										/>
-										<div className="mt-5 text-3xl">{FA_IR.InviteTrainer}</div>
-									</div>
-									<div className="px-5 pb-8">
-										<div className="grid grid-cols-12 gap-4 row-gap-3">
-											<div className="rtl col-span-12">
-												<FormLabel>{FA_IR.Trainer}</FormLabel>
-												<Field
-													as={FormInput}
-													name="trainer_id"
-													type="text"
-													className="mt-2"
-													placeholder={FA_IR.TrainerId}
-													list="trainer"
-												>
-													<datalist id="trainer">
-														{trainersCompleteList?.map((trainer: any) => (
-															<option
-																value={trainer.id}
-															>{`${trainer.user.first_name} ${trainer.user.last_name}`}</option>
-														))}
-													</datalist>
-												</Field>
-											</div>
-										</div>
-									</div>
+						<div className="p-5 text-center">
+							<Lucide
+								icon="PlusCircle"
+								className="w-16 h-16 mx-auto mt-3 text-primary"
+							/>
+							<div className="mt-5 text-3xl">{FA_IR.InviteTrainer}</div>
+						</div>
+						<div className="px-5 pb-8">
+							<div className="grid grid-cols-12 gap-4 row-gap-3">
+								<div className="rtl col-span-12">
+									<FormLabel htmlFor='trainer'>{FA_IR.Trainer}</FormLabel>
+									<TomSelect
+										value={selectedTrainer}
+										onChange={(value) => {
+											setSelectedTrainer(value as string);
+										}}
+										id="trainer"
+										className="mt-2 ltr"
+										placeholder={FA_IR.SearchTrainerName}
+									>
+										<option value="#">
+											{FA_IR.SelectTrainer}
+										</option>
+										{trainersCompleteList?.map((trainer: any) => (
+											<option
+												key={`trainer-${trainer.id}`}
+												value={trainer.id}
+											>{`${trainer.user.first_name} ${trainer.user.last_name}`}</option>
+										))}
+									</TomSelect>
+								</div>
+							</div>
+						</div>
 
-									<div className="px-5 pb-8 text-center">
-										<Button
-											type="button"
-											variant="outline-secondary"
-											onClick={() => {
-												setOpenInviteTrainer(false);
-											}}
-											className="w-32 ml-4"
-										>
-											{FA_IR.Cancel}
-										</Button>
-										<Button
-											disabled={isSubmitting}
-											type="submit"
-											variant="primary"
-											className="w-32"
-											ref={inviteTrainerRef}
-										>
-											{FA_IR.SendInvitaion}
-										</Button>
-									</div>
-								</Form>
-							)}
-						</Formik>
+						<div className="px-5 pb-8 text-center">
+							<Button
+								type="button"
+								variant="outline-secondary"
+								onClick={() => {
+									setOpenInviteTrainer(false);
+								}}
+								className="w-32 ml-4"
+							>
+								{FA_IR.Cancel}
+							</Button>
+							<Button
+								type="submit"
+								variant="primary"
+								className="w-32"
+								ref={inviteTrainerRef}
+								onClick={inviteTrainer}
+							>
+								{FA_IR.SendInvitaion}
+							</Button>
+						</div>
 					</Dialog.Panel>
 				</Dialog>
 				{/* END: Data List */}
