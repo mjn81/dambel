@@ -1,16 +1,16 @@
-import DarkModeSwitcher from '../../../components/DarkModeSwitcher';
-import MainColorSwitcher from '../../../components/MainColorSwitcher';
+import DarkModeSwitcher from '../../components/DarkModeSwitcher';
+import MainColorSwitcher from '../../components/MainColorSwitcher';
 import { Formik, Form, Field } from 'formik';
-import { FormInput } from '../../../base-components/Form';
+import { FormInput } from '../../base-components/Form';
 import * as Yup from 'yup';
-import Button from '../../../base-components/Button';
+import Button from '../../base-components/Button';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { FA_IR, FA_IR_ERROR } from '../../../language';
-import { LogoFixed } from '../../../components/Logo';
-import { useLogin, useSendOtp } from '../../../hooks';
-import { CustomErrorMessage } from '../../../components/Form/Error';
-import { LoadingPage } from '../../LoadingPage';
+import { FA_IR, FA_IR_ERROR } from '../../language';
+import { LogoFixed } from '../../components/Logo';
+import { useLogin, useSendOtp } from '../../hooks';
+import { CustomErrorMessage } from '../../components/Form/Error';
+import { LoadingPage } from '../LoadingPage';
 
 const ForgetPassInitialValues = {
 	email: '',
