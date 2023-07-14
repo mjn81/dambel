@@ -19,6 +19,7 @@ function Main() {
     Array<FormattedMenu | "divider">
   >([]);
   const simpleMenuStore = useAppSelector(selectSimpleMenu);
+  // @`ts-ignore
   const simpleMenu = () => nestedMenu(simpleMenuStore, location);
 
   useEffect(() => {
