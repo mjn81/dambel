@@ -4,8 +4,10 @@ import SideMenu from '../layouts/SideMenu';
 import AddGymPage from "../pages/gym/addGym";
 import FindGymPage from "../pages/gym/findGym";
 import LandingPage from "../pages/landing";
-import Login from "../pages/auth/login";
-import Register from "../pages/auth/register";
+// @ts-ignore
+import Login from "../pages/auth/login/index";
+// @ts-ignore
+import Register from "../pages/auth/register/index";
 import ForgetPassword from "../pages/auth/forgetpass";	
 import ForgetPasswordOtp from '../pages/auth/forgetpass/otp';	
 import ResetPassword from '../pages/auth/forgetpass/reset';	

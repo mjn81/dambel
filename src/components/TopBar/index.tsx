@@ -1,18 +1,9 @@
-import { useState, Fragment } from "react";
-import Lucide from "../../base-components/Lucide";
-import Breadcrumb from "../../base-components/Breadcrumb";
-import { FormInput } from "../../base-components/Form";
-import { Menu, Popover } from "../../base-components/Headless";
-import fakerData from "../../utils/faker";
-import _ from "lodash";
-import clsx from "clsx";
-import { Transition } from "@headlessui/react";
-import { FA_IR, FA_IR_ROLES } from "../../language";
-import { Link } from "react-router-dom";
-import { useLogout } from "../../hooks/useLogout";
+import { useState } from "react";
+import { Menu } from "../../base-components/Headless";
 import { useAccountProfile } from "../../hooks";
 import { useAppSelector } from "../../redux/hooks";
-import { Role } from "../../constants";
+import { FA_IR } from "../../language";
+import { useLogout } from "../../hooks/useLogout";
 
 function Main() {
 	const { data: profile } = useAccountProfile();

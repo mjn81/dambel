@@ -4,13 +4,8 @@ import { useAppSelector } from '../../redux/hooks'
 import { FA_IR, FA_IR_ROLES } from '../../language'
 import { Role } from '../../constants'
 import _ from "lodash";
-import fakerData from "../../utils/faker";
-import Button from "../../base-components/Button";
-import { FormSwitch } from "../../base-components/Form";
-import Progress from "../../base-components/Progress";
 import Lucide from "../../base-components/Lucide";
-import { Menu, Tab } from "../../base-components/Headless";
-import { Tab as HeadlessTab } from "@headlessui/react";
+import {  Tab } from "../../base-components/Headless";
 
 const Main = () => {
   const { data } = useAccountProfile()
