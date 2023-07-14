@@ -143,9 +143,9 @@ function Main() {
 				{details.plans?.map((plan, index) => (
 					<div
 						key={plan.id}
-						className="rtl gap-3 flex justify-evenly items-center pt-3 px-3"
+						className="rtl gap-3 flex justify-evenly items-center pb-3 px-3 last:pb-0"
 					>
-						<div className="flex">{index + 1}</div>
+						<div className='flex'>{index + 1}</div>
 						<div className="ml-3">
 							<div className="text-base font-medium truncate">{plan.name}</div>
 						</div>
@@ -154,25 +154,28 @@ function Main() {
 						</div>
 						<div className="text-lime-500">
 							{FA_IR.PlanTime} :{' '}
-							{`${SecondToDaytime(plan.time_start)}-${SecondToDaytime(
-								plan.time_end
-							)}`}
+							{`${plan.time_start.toLocaleString(
+								'fa-IR'
+							)}-${plan.time_end.toLocaleString('fa-IR')}`}
 						</div>
 						<div>
 							{FA_IR.ParticipantsNumber} : {plan.trainee.length}
 						</div>
 
-						<Button
-							variant="primary"
-							onClick={() => {
-								setSelectedPlan({
-									id: plan.id,
-									isOpen: true,
-								});
-							}}
-						>
-							{FA_IR.AddComment}
-						</Button>
+						{(auth.role as Role) === Role.Trainee && (
+							<Button
+								variant="primary"
+								onClick={() => {
+									setSelectedPlan({
+										id: plan.id,
+										isOpen: true,
+									});
+								}}
+								className=""
+							>
+								{FA_IR.AddComment}
+							</Button>
+						)}
 					</div>
 				))}
 
@@ -194,65 +197,69 @@ function Main() {
 				initialFocus={selectedPlanRef}
 			>
 				<Dialog.Panel>
-					<div className="p-5 text-center">	
-					{(auth.role as Role) === Role.Trainee && (
-						<Formik initialValues={initialValues} onSubmit={addComment}>
-							{({ isSubmitting }) => (
-								<Form>
-									<div className="p-5 text-center">
-										<Lucide
-											icon="MessageCircle"
-											className="w-16 h-16 mx-auto mt-3 text-primary"
-										/>
-										<div className="mt-5 text-3xl">{FA_IR.AddComment}</div>
-									</div>
-									<div className="px-5 pb-8">
-										<div className="grid grid-cols-12 gap-4 row-gap-3">
-											<div className="col-span-12">
-												<FormLabel className='text-right w-full block'>{FA_IR.Comment}</FormLabel>
-												<Field as={FormInput} type="text" name="text" />
-											</div>
-											<div className="col-span-12 sm:col-span-6">
-												<FormLabel className='text-right w-full block'>{FA_IR.Rate}</FormLabel>
-												<Field
-													as={FormInput}
-													type="number"
-													max={5}
-													min={1}
-													name="rate"
-												/>
+					<div className="p-5 text-center">
+						{(auth.role as Role) === Role.Trainee && (
+							<Formik initialValues={initialValues} onSubmit={addComment}>
+								{({ isSubmitting }) => (
+									<Form>
+										<div className="p-5 text-center">
+											<Lucide
+												icon="MessageCircle"
+												className="w-16 h-16 mx-auto mt-3 text-primary"
+											/>
+											<div className="mt-5 text-3xl">{FA_IR.AddComment}</div>
+										</div>
+										<div className="px-5 pb-8">
+											<div className="grid grid-cols-12 gap-4 row-gap-3">
+												<div className="col-span-12">
+													<FormLabel className="text-right w-full block">
+														{FA_IR.Comment}
+													</FormLabel>
+													<Field as={FormInput} type="text" name="text" />
+												</div>
+												<div className="col-span-12 sm:col-span-6">
+													<FormLabel className="text-right w-full block">
+														{FA_IR.Rate}
+													</FormLabel>
+													<Field
+														as={FormInput}
+														type="number"
+														max={5}
+														min={1}
+														name="rate"
+													/>
+												</div>
 											</div>
 										</div>
-									</div>
 
-									<div className="px-5 pb-8 text-center">
-										<Button
-											type="button"
-											variant="outline-secondary"
-											onClick={() => {
-												setSelectedPlan({
-													isOpen: false,
-													id: -1,
-												});
-											}}
-											className="w-24 ml-4"
-										>
-											{FA_IR.Cancel}
-										</Button>
-										<Button
-											disabled={isSubmitting}
-											type="submit"
-											variant="primary"
-											className="w-24"
-											ref={selectedPlanRef}
-										>
-											{FA_IR.AddComment}
-										</Button>
-									</div>
-								</Form>
-							)}
-						</Formik>
-					)}
+										<div className="px-5 pb-8 text-center">
+											<Button
+												type="button"
+												variant="outline-secondary"
+												onClick={() => {
+													setSelectedPlan({
+														isOpen: false,
+														id: -1,
+													});
+												}}
+												className="w-24 ml-4"
+											>
+												{FA_IR.Cancel}
+											</Button>
+											<Button
+												disabled={isSubmitting}
+												type="submit"
+												variant="primary"
+												className="w-24"
+												ref={selectedPlanRef}
+											>
+												{FA_IR.AddComment}
+											</Button>
+										</div>
+									</Form>
+								)}
+							</Formik>
+						)}
 					</div>
 				</Dialog.Panel>
 			</Dialog>

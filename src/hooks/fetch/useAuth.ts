@@ -8,6 +8,7 @@ import {
   postAuthRegisterTrainee,
   postAuthRegisterTrainer,
   postAuthResetPass,
+  postCheckVerifyAccount,
 } from '../../api';
 import { FA_IR_ERROR } from '../../language';
 import { useMutation, useQuery } from 'react-query';
@@ -35,7 +36,7 @@ export const useLogin = () => {
 };
 
 export const useSendOtp = () => {
-  return useMutation(['otp'], postAuthResetPass, {
+  return useMutation(['take-otp'], postAuthResetPass, {
     onSuccess: (data) => {
       toast.success(FA_IR_ERROR.OtpSuccess);
     },
@@ -45,7 +46,7 @@ export const useSendOtp = () => {
   });
 }
 export const useCheckOtp = () => {
-  return useMutation(['otp'], postAuthCheckOtp, {
+  return useMutation(['check-otp'], postAuthCheckOtp, {
 		onError: (error) => {
 			toast.error(FA_IR_ERROR.WrongOtp);
 		},
@@ -99,7 +100,7 @@ export const useTrainerRegister = () => {
 
 export const useTraineeRegister = () => {
   return useMutation(
-    ['trainneReigster'],
+    ['traineeReigster'],
     postAuthRegisterTrainee,
     {
       onSuccess: (data) => {
@@ -122,14 +123,22 @@ export const useCheckVerifyAccount = () => {
 		refetchOnMount: false,
 		refetchOnWindowFocus: false,
     refetchInterval: false,
-		onError: (error) => {
-			toast.warning(FA_IR_ERROR.UnverifiedAccount);
+    onError: (error: any) => {
+      if (error.response.status === 500) {
+      toast.error(FA_IR_ERROR.UnableToSendEmailServer);
+      }
+      toast.warning(FA_IR_ERROR.UnverifiedAccount);
 		},
 	});
 };
 
 export const useAccountProfile = () => {
   return useQuery(['accountProfile'], getAccountProfile, {
+    retry: false,
+  });
+};
+export const usePostVerifyAccount = () => {
+  return useMutation <any, any, {code: string}>(['POST-VERIFY-ACC'], (data) => postCheckVerifyAccount(data), {
     retry: false,
   });
 };

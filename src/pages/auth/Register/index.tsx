@@ -54,7 +54,12 @@ function Main() {
 	const { mutate: registerGymOwner, isLoading: isGymOwnerLoading } =
 		useGymownerRegister();
 	const navigate = useNavigate();
-	const [role, setRole] = useState<Role  | null>(null);
+	const [role, setRole] = useState<Role | null>(null);
+	const onError = (error: any) => {
+		if (error.response.status === 400) {
+			toast.error(FA_IR_ERROR.EmailOrPhoneAlreadyExists);
+		}
+	};
 	const handleSubmit = (values: typeof RegisterInitialValues) => {
 		if (role == Role.Trainee) {
 			const trainee = {
@@ -72,7 +77,8 @@ function Main() {
 			registerTrainee(trainee, {
 				onSuccess: () => {
 					navigate("/auth/login");
-				}
+				},
+				onError,
 			});
 		}
 		else if (role === Role.GymOwner) {
@@ -89,6 +95,7 @@ function Main() {
 				onSuccess: () => {
 					navigate('/auth/login');
 				},
+				onError,
 			});
 		}
 		else if (role == Role.Trainer) {
@@ -105,6 +112,7 @@ function Main() {
 				onSuccess: () => {
 					navigate('/auth/login');
 				},
+				onError,
 			});
 		}
 		else {

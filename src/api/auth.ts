@@ -45,5 +45,6 @@ export const postAuthConfirmReset = async (data: any) => {
 };
 
 export const getCheckVerifyAccount = () => get('/account/verify/');
+export const postCheckVerifyAccount = (data: any) => post('/account/verify/', data);
 
 export const getAccountProfile = () => get('/account/profile/');

@@ -1,6 +1,12 @@
 import { Role } from "../constants";
 export const FA_IR = {
 	// gym
+	VerifyMessage: 'یک کد تایید به حساب کاربری ایمیل شما که با آن ثبت نام نموده اید ارسال شده است. لطفا ایمیل خود را بررسی کنید.',
+	verified: 'تایید با موفقیت انجام شد.',
+	VerificationCode: 'کد تایید',
+	AlreadyVerified: 'حساب تایید شده است.',
+	ContactDetails: 'اطلاعات تماس',
+	UserProfile: 'پروفایل کاربری',
 	SelectMembers: 'انتخاب اعضا',
 	Members: 'اعضا', 
 	SearchTrainerName: 'جستجو بر اساس نام مربی',
@@ -190,6 +196,7 @@ export const FA_IR_ROLES = {
 }
 
 export const FA_IR_ERROR = {
+	EnterCode: 'کد را وارد کنید.',
 	Required: 'این فیلد اجباری است',
 	SelectTrainer: 'لطفا یک مربی انتخاب کنید',
 	PlanRequired: 'لطفا یک دوره انتخاب کنید',
@@ -250,4 +257,7 @@ export const FA_IR_ERROR = {
 	RegisterSuccess: 'ثبت نام با موفقیت انجام شد',
 	RegisterFailed: 'ثبت نام با مشکل مواجه شد',
 	EmailAlreadyExists: 'ایمیل وارد شده وجود دارد',
+	EmailOrPhoneAlreadyExists: 'ایمیل یا شماره وارد شده وجود دارد',
+	UnableToSendEmailServer:
+		'به علت نقص سرور در حال حاضر امکان ارسال ایمیل وجود ندارد.',
 };

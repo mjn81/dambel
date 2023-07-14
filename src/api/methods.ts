@@ -16,7 +16,7 @@ export const setApiHeader = (token: string) => {
 export const get = async (url: string, config?: AxiosRequestConfig<any>) => {
   return await axios.get(url, config).then((res) => res.data); 
 }
-export const post = async (url: string, data:any) => {
+export const post = async (url: string, data?:any) => {
   return await axios.post(url, data).then((res) => res.data); 
 }
 

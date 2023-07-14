@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAccountProfile } from '../../hooks'
 import { useAppSelector } from '../../redux/hooks'
-import { FA_IR_ROLES } from '../../language'
+import { FA_IR, FA_IR_ROLES } from '../../language'
 import { Role } from '../../constants'
 import _ from "lodash";
 import fakerData from "../../utils/faker";
@@ -20,7 +20,7 @@ const Main = () => {
   return (
     <>
       <div className="flex items-center mt-8 intro-y">
-        <h2 className="mr-auto text-lg font-medium">Profile Layout</h2>
+        <h2 className="ml-auto text-lg font-medium">{FA_IR.UserProfile}</h2>
       </div>
       <Tab.Group>
         {/* BEGIN: Profile Info */}
@@ -36,7 +36,7 @@ const Main = () => {
             </div>
             <div className="flex-1 px-5 pt-5 mt-6 border-t border-l border-r lg:mt-0 border-slate-200/60 dark:border-darkmode-400 lg:border-t-0 lg:pt-0">
               <div className="font-medium text-center lg:text-left lg:mt-3">
-                Contact Details
+                {FA_IR.ContactDetails}
               </div>
               <div className="flex flex-col items-center justify-center mt-4 lg:items-start">
                 <div className="flex items-center truncate sm:whitespace-normal">
