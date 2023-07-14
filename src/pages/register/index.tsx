@@ -1,20 +1,20 @@
-import DarkModeSwitcher from "../../../components/DarkModeSwitcher";
-import MainColorSwitcher from "../../../components/MainColorSwitcher";
-import { FormInput, FormLabel, FormSelect, InputGroup } from "../../../base-components/Form";
+import DarkModeSwitcher from "../../components/DarkModeSwitcher";
+import MainColorSwitcher from "../../components/MainColorSwitcher";
+import { FormInput, FormSelect, InputGroup } from "../../base-components/Form";
 import * as Yup from "yup";
-import Button from "../../../base-components/Button";
+import Button from "../../base-components/Button";
 import clsx from "clsx";
 import {Link, useNavigate } from "react-router-dom";
-import { FA_IR, FA_IR_ERROR } from "../../../language";
-import { LogoFixed } from "../../../components/Logo";
+import { FA_IR, FA_IR_ERROR } from "../../language";
+import { LogoFixed } from "../../components/Logo";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { CustomErrorMessage } from "../../../components/Form/Error";
+import { CustomErrorMessage } from "../../components/Form/Error";
 import { Frame } from "lucide-react";
-import { useGymownerRegister, useTraineeRegister, useTrainerRegister } from "../../../hooks";
-import { LoadingPage } from "../../LoadingPage";
-import { Role } from "../../../constants";
+import { useGymownerRegister, useTraineeRegister, useTrainerRegister } from "../../hooks";
+import { LoadingPage } from "../LoadingPage";
+import { Role } from "../../constants";
 
 const RegisterInitialValues = {
 	firstName: "",
@@ -173,7 +173,7 @@ export function Register() {
 									<Form>
 										<div className="mt-8 intro-x">
 											<FormSelect
-												onChange={(e) => {
+												onChange={(e: any) => {
 													setRole(e.currentTarget.value as Role);
 												}}
 												defaultValue="#"
