@@ -24,7 +24,7 @@ const LoginValidationSchema = Yup.object({
 });
 
 
-function Main() {
+export function Login() {
 	const navigate = useNavigate();
 	const {mutate, isLoading} = useLogin(); 
 	const handleSubmit = (values : typeof LoginInitialValues) => {
@@ -121,5 +121,3 @@ function Main() {
 		</>
 	);
 }
-
-export default Main;

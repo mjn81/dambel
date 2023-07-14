@@ -47,7 +47,7 @@ const TraineeAdditionalFieldsValidationSchema = {
 };
 
 
-function Main() {
+export function Register() {
 	const {mutate: registerTrainee, isLoading: isTraineeLoading} = useTraineeRegister();
 	const { mutate: registerTrainer, isLoading: isTrainerLoading } =
 		useTrainerRegister(); 
@@ -298,4 +298,4 @@ function Main() {
 	);
 }
 
-export default Main;
+
