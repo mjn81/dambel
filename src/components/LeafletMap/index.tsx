@@ -3,7 +3,6 @@ import LeafletMapLoader, { Init } from "../../base-components/LeafletMapLoader";
 import { getColor } from "../../utils/colors";
 import { selectDarkMode } from "../../redux/darkModeSlice";
 import { useAppSelector } from "../../redux/hooks";
-import location from "../../assets/json/location.json";
 import { selectColorScheme } from "../../redux/colorSchemeSlice";
 import {  IMapLocation, IMarker } from "../../interfaces/map";
 import { GymListArray } from "../../pages/gym/findGym";
@@ -149,23 +148,6 @@ function Main({className , currentLoaction, setCurrentLocation, isLoading	}: Mai
 
       map.addLayer(markers);
       
-			location.map(function (markerElem) {
-				const marker = leaflet.marker(
-					{
-						lat: parseFloat(markerElem.latitude),
-						lng: parseFloat(markerElem.longitude),
-					},
-					{
-						title: markerElem.name,
-						icon: leaflet.icon({
-							iconUrl: `data:image/svg+xml;base64,${userMarkerSvg}`,
-							iconAnchor: leaflet.point(10, 35),
-						}),
-					}
-				);
-				markers.addLayer(marker);
-      });
-
 			map.on('moveend', () => {  
         GymListArray?.map(function (markerElem) {
           if (MarkerArray.get(makeMarkerKey(markerElem))) return;
