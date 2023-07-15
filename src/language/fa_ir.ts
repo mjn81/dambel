@@ -1,6 +1,7 @@
 import { Role } from "../constants";
 export const FA_IR = {
 	// gym
+	RequestSendSuccessfully: 'درخواست با موفقیت ارسال شد.',
 	VerifyMessage:
 		'یک کد تایید به حساب کاربری ایمیل شما که با آن ثبت نام نموده اید ارسال شده است. لطفا ایمیل خود را بررسی کنید.',
 	verified: 'تایید با موفقیت انجام شد.',
@@ -198,6 +199,7 @@ export const FA_IR_ROLES = {
 }
 
 export const FA_IR_ERROR = {
+	SendRequestError: 'در ارسال درخواست خطایی رخ داده.',
 	MaxFileUploaded: 'امکان بارگذاری فایل بیشتر وجود ندارد',
 	EnterCode: 'کد را وارد کنید.',
 	Required: 'این فیلد اجباری است',

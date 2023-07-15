@@ -1,7 +1,7 @@
 import Button from '../../../base-components/Button';
 import { FormInput, FormLabel, FormSelect } from '../../../base-components/Form';
 import { useGymListSearch, useGymLocationList } from '../../../hooks';
-import { FA_IR } from '../../../language';
+import { FA_IR, FA_IR_ERROR } from '../../../language';
 import { Field, Form, Formik } from 'formik';
 import { Link, useLocation } from 'react-router-dom';
 import { IMapLocation } from '../../../interfaces/map';
@@ -11,6 +11,8 @@ import { Role } from '../../../constants';
 import { useAppSelector } from '../../../redux/hooks';
 import { Dialog } from '../../../base-components/Headless';
 import { IGymInfo } from '../../../interfaces';
+import { usePostAcceptTraineeRequest } from '../../../hooks/fetch/useRequest';
+import { toast } from 'react-toastify';
 
 function Main() {
   const location = useLocation();
@@ -18,9 +20,10 @@ function Main() {
     searchTerm: location.state?.term || '',
     location: location.state?.location,
   }), []);
-  
+	const { mutate: postTraineeRequest } = usePostAcceptTraineeRequest();
+	const [selectedPlan, setSelectedPlan] = useState('#');
   const [params, setParams] = useState(initialValues);
-  const { data: gymList, isLoading } = useGymListSearch(params);
+	const { data: gymList, isLoading } = useGymListSearch(params);
 	const onSubmit = (values: typeof initialValues) => {
 		if (values.searchTerm) {
 			setParams({
@@ -193,7 +196,10 @@ function Main() {
 						</Dialog.Title>
 						<Dialog.Description className=" grid grid-cols-12 gap-4 gap-y-3">
 							<div className="col-span-12">
-								<FormSelect>
+								<FormSelect
+									value={selectedPlan}
+									onChange={(e) => setSelectedPlan(e.currentTarget.value)}
+								>
 									<option value="#">{FA_IR.SelectPlan2}</option>
 									{selectedGym.gym?.plans.map((plan) => (
 										<option key={plan.id} value={plan.id}>
@@ -209,6 +215,22 @@ function Main() {
 								type="button"
 								className="w-20"
 								ref={sendButtonRef}
+								onClick={() => {
+									postTraineeRequest({
+										plan_id: selectedPlan,
+									}, {
+										onSuccess: () => {
+											toast.success(FA_IR.RequestSendSuccessfully);
+												setSelectedGym({
+													gym: null,
+													isOpen: false,
+												});
+										},
+										onError: () => {
+											toast.error(FA_IR_ERROR.SendRequestError)
+										}
+									})
+								}}
 							>
 								{FA_IR.Send}
 							</Button>
