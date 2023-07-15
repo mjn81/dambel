@@ -195,7 +195,6 @@ function Main({className , currentLoaction, setCurrentLocation, isLoading	}: Mai
    
 		}
   }, [location, darkMode, isLoading]);
-	console.log(init, 'ran in production');
   return (
 		<LeafletMapLoader init={init} darkMode={darkMode} className={className} />
 	);
