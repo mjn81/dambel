@@ -108,7 +108,11 @@ function Main() {
 					setBackgroundImage(backImgEl.dropzone.files[0]);
 				});
 				backImgEl.dropzone.on('error', () => {
+					backImgEl.dropzone.removeAllFiles();
 					toast.error(FA_IR_ERROR.UploadFailed);
+				});
+				backImgEl.dropzone.on('maxfilesexceeded', () => {
+					toast.error(FA_IR_ERROR.MaxFileUploaded);
 				});
 		}
 		if (logoEl) {
@@ -116,7 +120,11 @@ function Main() {
 				setLogo(logoEl.dropzone.files[0]);
 			});
 			logoEl.dropzone.on('error', () => {
+				logoEl.dropzone.removeAllFiles();
 				toast.error(FA_IR_ERROR.UploadFailed);
+			});
+			logoEl.dropzone.on('maxfilesexceeded', () => {
+				toast.error(FA_IR_ERROR.MaxFileUploaded);
 			});
 		}
 		if (licenseEl) {
@@ -124,7 +132,11 @@ function Main() {
 				setLicense(licenseEl.dropzone.files[0]);
 			});
 			licenseEl.dropzone.on('error', () => {
+				licenseEl.dropzone.removeAllFiles();
 				toast.error(FA_IR_ERROR.UploadFailed);
+			});
+			license.dropzone.on('maxfilesexceeded', () => {
+				toast.error(FA_IR_ERROR.MaxFileUploaded);
 			});
 		}
 	}, [])
@@ -249,7 +261,7 @@ function Main() {
 										options={{
 											url: 'https://httpbin.org/post',
 											thumbnailWidth: 150,
-											maxFilesize: 0.5,
+											maxFilesize: 2,
 											maxFiles: 1,
 											headers: { 'My-Awesome-Header': 'header value' },
 										}}
@@ -294,7 +306,7 @@ function Main() {
 									options={{
 										url: 'https://httpbin.org/post',
 										thumbnailWidth: 150,
-										maxFilesize: 0.5,
+										maxFilesize: 1,
 										maxFiles: 1,
 										headers: { 'My-Awesome-Header': 'header value' },
 									}}

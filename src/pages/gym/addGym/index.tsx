@@ -101,23 +101,35 @@ function Main() {
 					setBackgroundImage(backImgEl.dropzone.files[0]);
 				});
 				backImgEl.dropzone.on('error', () => {
+					backImgEl.dropzone.removeAllFiles();
 					toast.error(FA_IR_ERROR.UploadFailed);
 				});
+					backImgEl.dropzone.on('maxfilesexceeded', () => {
+						toast.error(FA_IR_ERROR.MaxFileUploaded);
+					});
 		}
 		if (logoEl) {
 			logoEl.dropzone.on('success', () => {
 				setLogo(logoEl.dropzone.files[0]);
 			});
 			logoEl.dropzone.on('error', () => {
+				logoEl.dropzone.removeAllFiles();
 				toast.error(FA_IR_ERROR.UploadFailed);
 			});
+				logoEl.dropzone.on('maxfilesexceeded', () => {
+					toast.error(FA_IR_ERROR.MaxFileUploaded);
+				});
 		}
 		if (licenseEl) {
 			licenseEl.dropzone.on('success', () => {
 				setLicense(licenseEl.dropzone.files[0]);
 			});
 			licenseEl.dropzone.on('error', () => {
+				licenseEl.dropzone.removeAllFiles();
 				toast.error(FA_IR_ERROR.UploadFailed);
+			});
+			license.dropzone.on('maxfilesexceeded', () => {
+				toast.error(FA_IR_ERROR.MaxFileUploaded);
 			});
 		}
 	}, [])

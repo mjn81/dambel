@@ -196,6 +196,7 @@ export const FA_IR_ROLES = {
 }
 
 export const FA_IR_ERROR = {
+	MaxFileUploaded: 'امکان بارگذاری فایل بیشتر وجود ندارد',
 	EnterCode: 'کد را وارد کنید.',
 	Required: 'این فیلد اجباری است',
 	SelectTrainer: 'لطفا یک مربی انتخاب کنید',

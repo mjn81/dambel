@@ -47,7 +47,11 @@ function Main() {
 			<div className="grid grid-cols-12 gap-6 mt-5">
 				<Formik onSubmit={onSubmit} initialValues={initialValues}>
 					<Form className="flex flex-wrap gap-3 items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
-						<Button disabled={isLoading} variant="primary" className="mr-2 shadow-md">
+						<Button
+							disabled={isLoading}
+							variant="primary"
+							className="mr-2 shadow-md"
+						>
 							{FA_IR.Search3}
 						</Button>
 						<Button
@@ -92,9 +96,12 @@ function Main() {
 										/>
 									</div>
 									<div className="mt-3 text-center lg:ml-4 lg:text-left lg:mt-0">
-										<a href="" className="font-medium">
+										<Link
+											to={`/dashboard/gym/${gym.id}`}
+											className="font-medium"
+										>
 											{gym.name}
-										</a>
+										</Link>
 										<div className="text-slate-500 text-xs mt-0.5">
 											{gym.city.name}
 										</div>

@@ -4,7 +4,7 @@ import { getColor } from "../../utils/colors";
 import { selectDarkMode } from "../../redux/darkModeSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { selectColorScheme } from "../../redux/colorSchemeSlice";
-import {  IMapLocation, IMarker } from "../../interfaces/map";
+import { IMapLocation, IMarker } from "../../interfaces/map";
 import { GymListArray } from "../../pages/gym/findGym";
 
 type MainProps = React.ComponentPropsWithoutRef<"div"> & {
@@ -50,7 +50,8 @@ function Main({className , currentLoaction, setCurrentLocation, isLoading	}: Mai
                 </g>
               </svg>
             `);
-    if (mapInstance) {
+		if (mapInstance) {
+			console.log('ran in prod');
 			const apiKey = '1e86fd5a7f60486a8e899411776f60d5';
 			const { map, leaflet } = mapInstance;
 
