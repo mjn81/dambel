@@ -128,7 +128,7 @@ function Main() {
 				licenseEl.dropzone.removeAllFiles();
 				toast.error(FA_IR_ERROR.UploadFailed);
 			});
-			license.dropzone.on('maxfilesexceeded', () => {
+			licenseEl.dropzone.on('maxfilesexceeded', () => {
 				toast.error(FA_IR_ERROR.MaxFileUploaded);
 			});
 		}
@@ -235,7 +235,7 @@ function Main() {
 										options={{
 											url: 'https://httpbin.org/post',
 											thumbnailWidth: 150,
-											maxFilesize: 0.5,
+											maxFilesize: 1,
 											maxFiles: 1,
 											headers: { 'My-Awesome-Header': 'header value' },
 										}}
@@ -257,7 +257,7 @@ function Main() {
 										options={{
 											url: 'https://httpbin.org/post',
 											thumbnailWidth: 150,
-											maxFilesize: 0.5,
+											maxFilesize: 1,
 											maxFiles: 1,
 											headers: { 'My-Awesome-Header': 'header value' },
 										}}
@@ -280,7 +280,7 @@ function Main() {
 									options={{
 										url: 'https://httpbin.org/post',
 										thumbnailWidth: 150,
-										maxFilesize: 0.5,
+										maxFilesize: 1,
 										maxFiles: 1,
 										headers: { 'My-Awesome-Header': 'header value' },
 									}}
