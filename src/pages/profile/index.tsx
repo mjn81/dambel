@@ -11,7 +11,6 @@ const Main = () => {
   const { data } = useAccountProfile()
   const auth = useAppSelector((state) => state.auth)
   FA_IR_ROLES[auth.role as Role]
-  console.log(auth)
   return (
     <>
       <div className="flex items-center mt-8 intro-y">

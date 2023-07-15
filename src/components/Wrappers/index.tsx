@@ -13,7 +13,6 @@ export const HeaderApiLoader = () => {
 			setApiHeader(auth.access);
 		} else if (!location.pathname.includes('/auth') && location.pathname !== '/') {
 			setApiHeader('');
-			console.log('auth included');
 			navigate('/auth/login');
 		}
 	}, [auth]);
